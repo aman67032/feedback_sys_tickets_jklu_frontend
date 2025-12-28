@@ -14,31 +14,15 @@ interface RegisterFormData {
   password: string;
   confirmPassword: string;
   name: string;
-  role: 'student' | 'sub_admin';
-  studentId?: string;
-  domainId?: number;
+  studentId: string;
 }
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
-  const [domains, setDomains] = useState<any[]>([]);
   const router = useRouter();
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormData>();
   
-  const watchedRole = watch('role');
   const watchedPassword = watch('password');
-
-  useEffect(() => {
-    const fetchDomains = async () => {
-      try {
-        const response = await userAPI.getDomains();
-        setDomains(response.data.domains);
-      } catch (error) {
-        console.error('Failed to fetch domains:', error);
-      }
-    };
-    fetchDomains();
-  }, []);
 
   const onSubmit = async (data: RegisterFormData) => {
     if (data.password !== data.confirmPassword) {
@@ -50,11 +34,13 @@ export default function Register() {
     try {
       const { confirmPassword, ...submitData } = data;
       
-      if (submitData.role === 'student') {
-        submitData.domainId = undefined;
-      }
+      // Registration is only for students
+      const registrationData = {
+        ...submitData,
+        role: 'student'
+      };
       
-      const response = await authAPI.register(submitData);
+      const response = await authAPI.register(registrationData);
       toast.success('Registration successful! Please login.');
       router.push('/login');
     } catch (error: any) {
@@ -83,28 +69,11 @@ export default function Register() {
           <CardHeader>
             <CardTitle>Register</CardTitle>
             <CardDescription>
-              Fill in your details to create an account
+              Fill in your details to create a student account
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Role
-                </label>
-                <select
-                  {...register('role', { required: 'Role is required' })}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value="">Select a role</option>
-                  <option value="student">Student</option>
-                  <option value="sub_admin">Sub Admin</option>
-                </select>
-                {errors.role && (
-                  <p className="mt-1 text-sm text-red-600">{errors.role.message}</p>
-                )}
-              </div>
-
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Full Name
@@ -147,53 +116,26 @@ export default function Register() {
                 )}
               </div>
 
-              {watchedRole === 'student' && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Student ID
-                  </label>
-                  <input
-                    {...register('studentId', { 
-                      required: 'Student ID is required for students',
-                      minLength: {
-                        value: 5,
-                        message: 'Student ID must be at least 5 characters'
-                      }
-                    })}
-                    type="text"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    placeholder="Enter your student ID"
-                  />
-                  {errors.studentId && (
-                    <p className="mt-1 text-sm text-red-600">{errors.studentId.message}</p>
-                  )}
-                </div>
-              )}
-
-              {watchedRole === 'sub_admin' && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Domain
-                  </label>
-                  <select
-                    {...register('domainId', { 
-                      required: 'Domain is required for sub-admins',
-                      valueAsNumber: true
-                    })}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  >
-                    <option value="">Select a domain</option>
-                    {domains.map((domain) => (
-                      <option key={domain.id} value={domain.id}>
-                        {domain.name}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.domainId && (
-                    <p className="mt-1 text-sm text-red-600">{errors.domainId.message}</p>
-                  )}
-                </div>
-              )}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Student ID
+                </label>
+                <input
+                  {...register('studentId', { 
+                    required: 'Student ID is required',
+                    minLength: {
+                      value: 5,
+                      message: 'Student ID must be at least 5 characters'
+                    }
+                  })}
+                  type="text"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="Enter your student ID"
+                />
+                {errors.studentId && (
+                  <p className="mt-1 text-sm text-red-600">{errors.studentId.message}</p>
+                )}
+              </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700">
