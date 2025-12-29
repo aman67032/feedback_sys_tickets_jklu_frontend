@@ -154,7 +154,7 @@ export default function Dashboard() {
     return (
       <div
         className="min-h-screen flex items-center justify-center sketch-bg"
-        style={{ background: 'linear-gradient(to bottom right, #FAECCB,rgba(75, 195, 236, 0.35),rgba(249, 168, 34, 0.4),rgb(43, 184, 116))' }}
+        style={{ background: 'linear-gradient(to bottom right, #FFEFD5, #E0F7E9)' }}
       >
         <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderColor: '#F9A822' }}></div>
       </div>
@@ -168,10 +168,12 @@ export default function Dashboard() {
     return complaint.status === statusFilter;
   });
 
+
+  
   return (
     <div
       className="min-h-screen sketch-bg"
-      style={{ background: 'linear-gradient(to bottom right, #FAECCB,rgba(75, 195, 236, 0.35),rgba(249, 168, 34, 0.4),rgb(43, 184, 116))' }}
+      style={{ background: 'linear-gradient(to bottom right, #FFEFD5, #E0F7E9)' }}
     >
       {/* Enhanced Header */}
       <header className="sketch-border-bottom py-0 flex-shrink-0 overflow-visible relative z-10" style={{ background: 'rgba(255, 251, 244, 0.95)', backdropFilter: 'blur(10px)' }}>

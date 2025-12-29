@@ -123,7 +123,7 @@ export default function AdminDashboard() {
     return (
       <div
         className="min-h-screen flex items-center justify-center"
-        style={{ background: 'linear-gradient(to bottom right, #FFFBF4, #D8CFBC)' }}
+        style={{ background: 'linear-gradient(to bottom right, #FFEFD5, #E0F7E9)' }}
       >
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
   return (
     <div
       className="min-h-screen"
-      style={{ background: 'linear-gradient(to bottom right, #FFFBF4, #D8CFBC)' }}
+      style={{ background: 'linear-gradient(to bottom right, #FFEFD5, #E0F7E9)' }}
     >
       <header className="shadow-sm border-b" style={{ background: '#FFFBF4' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
