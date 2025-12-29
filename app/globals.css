@@ -24,3 +24,380 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Sketch Vibes Styles */
+@keyframes sketchy {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-1px, 1px) rotate(-0.5deg);
+  }
+  50% {
+    transform: translate(1px, -1px) rotate(0.5deg);
+  }
+  75% {
+    transform: translate(-1px, -1px) rotate(-0.3deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Sketch Background Pattern */
+.sketch-bg {
+  position: relative;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.02) 2px,
+      rgba(0, 0, 0, 0.02) 4px
+    );
+}
+
+/* Radial Gradient Utility */
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+.sketch-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Sketch Text Effect */
+.sketch-text {
+  position: relative;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-shadow: 
+    1px 1px 0 rgba(0, 0, 0, 0.1),
+    -1px -1px 0 rgba(255, 255, 255, 0.8);
+  transition: color 0.3s ease;
+}
+
+.sketch-title {
+  position: relative;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-shadow: 
+    2px 2px 0 rgba(0, 0, 0, 0.1),
+    -1px -1px 0 rgba(255, 255, 255, 0.9),
+    0 0 20px rgba(249, 168, 34, 0.2);
+  transform-style: preserve-3d;
+}
+
+/* Sketch Borders */
+.sketch-border-bottom {
+  border-bottom: 4px solid #1f2937;
+  position: relative;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.sketch-border-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 10px,
+    rgba(0, 0, 0, 0.1) 10px,
+    rgba(0, 0, 0, 0.1) 12px
+  );
+}
+
+.sketch-border-top {
+  border-top: 4px solid #1f2937;
+  position: relative;
+  box-shadow: 0 -4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.sketch-border-top::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 10px,
+    rgba(0, 0, 0, 0.1) 10px,
+    rgba(0, 0, 0, 0.1) 12px
+  );
+}
+
+/* Sketch Box */
+.sketch-box {
+  position: relative;
+  padding: 8px 16px;
+  display: inline-block;
+}
+
+.sketch-box::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border: 3px solid #1f2937;
+  border-radius: 4px;
+  clip-path: polygon(
+    0% 0%, 
+    98% 2%, 
+    100% 98%, 
+    2% 100%
+  );
+}
+
+/* Sketch Card */
+.sketch-card {
+  position: relative;
+  border: 3px solid #1f2937;
+  border-radius: 8px;
+  transform: rotate(-0.5deg);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.sketch-card:hover {
+  transform: rotate(0.5deg) translateY(-8px) scale(1.02);
+  box-shadow: 
+    12px 12px 0 rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(249, 168, 34, 0.4);
+  border-color: #F9A822;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+.sketch-card:hover .sketch-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.3));
+}
+
+.sketch-card:hover .sketch-text {
+  color: #2BBAA5;
+}
+
+.sketch-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px dashed rgba(251, 146, 60, 0.3);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+/* Sketch Icon */
+.sketch-icon {
+  position: relative;
+  display: inline-block;
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.2));
+  transition: all 0.3s ease;
+}
+
+/* Sketch Logo */
+.sketch-logo {
+  position: relative;
+  object-fit: contain;
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.2));
+  transform: rotate(-1deg);
+}
+
+/* Sketch Buttons - Landing Page (Original Orange Theme) */
+.sketch-button {
+  position: relative;
+  border: 3px solid #1f2937 !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotate(-0.5deg);
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.sketch-button:hover {
+  transform: rotate(0.5deg) translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+.sketch-button-primary {
+  position: relative;
+  background: linear-gradient(135deg, #F9A822, #F96635) !important;
+  border: 3px solid #1f2937 !important;
+  color: white !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotate(0.5deg);
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.sketch-button-primary:hover {
+  transform: rotate(-0.5deg) translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #F96635, #F9A822) !important;
+}
+
+/* Sketch Buttons - Login/Signup Pages (Neutral Theme) */
+.sketch-button-auth {
+  position: relative;
+  border: 3px solid #565449 !important;
+  background: #FFFBF4 !important;
+  color: #11120D !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotate(-0.5deg);
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.sketch-button-auth:hover {
+  transform: rotate(0.5deg) translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+  border-color: #11120D !important;
+  background: #D8CFBC !important;
+}
+
+.sketch-button-primary-auth {
+  position: relative;
+  background: linear-gradient(135deg, #565449, #11120D) !important;
+  border: 3px solid #11120D !important;
+  color: #FFFBF4 !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotate(0.5deg);
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.sketch-button-primary-auth:hover {
+  transform: rotate(-0.5deg) translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #11120D, #565449) !important;
+}
+
+/* Sketch Doodle */
+.sketch-doodle {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Additional sketchy effects */
+.sketch-card:nth-child(2) {
+  transform: rotate(0.5deg);
+}
+
+.sketch-card:nth-child(2):hover {
+  transform: rotate(-0.5deg) translateY(-8px) scale(1.02);
+}
+
+.sketch-card:nth-child(3) {
+  transform: rotate(-0.3deg);
+}
+
+.sketch-card:nth-child(3):hover {
+  transform: rotate(0.3deg) translateY(-8px) scale(1.02);
+}
+
+/* Sketch Border Dashed */
+.sketch-border-dashed {
+  border-style: dashed;
+  border-radius: 50%;
+  clip-path: polygon(
+    0% 0%, 
+    95% 5%, 
+    100% 95%, 
+    5% 100%
+  );
+}
+
+/* Sketch Corner */
+.sketch-corner {
+  clip-path: polygon(
+    0% 0%, 
+    90% 10%, 
+    100% 100%, 
+    10% 90%
+  );
+}
+
+/* Ticket Shape with Perforated Edges */
+.sketch-ticket {
+  border-radius: 8px;
+  border: 2px dashed rgba(251, 146, 60, 0.4);
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  backdrop-filter: blur(2px);
+}
+
+.sketch-ticket::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: inherit;
+  border-radius: 50%;
+  box-shadow: 
+    inset 0 0 0 2px rgba(251, 146, 60, 0.3),
+    0 0 0 2px rgba(251, 191, 36, 0.2);
+}
+
+.sketch-ticket::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: inherit;
+  border-radius: 50%;
+  box-shadow: 
+    inset 0 0 0 2px rgba(251, 146, 60, 0.3),
+    0 0 0 2px rgba(251, 191, 36, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sketch-title {
+    font-size: 3rem;
+  }
+  
+  .sketch-text {
+    font-size: 1.5rem;
+  }
+}

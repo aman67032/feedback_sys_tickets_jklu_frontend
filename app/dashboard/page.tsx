@@ -149,7 +149,10 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: 'linear-gradient(to bottom right, #FFFBF4, #D8CFBC)' }}
+      >
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     );
@@ -158,21 +161,24 @@ export default function Dashboard() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b">
+    <div
+      className="min-h-screen"
+      style={{ background: 'linear-gradient(to bottom right, #FFFBF4, #D8CFBC)' }}
+    >
+      <header className="shadow-sm border-b" style={{ background: '#FFFBF4' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-              <span className="ml-4 text-sm text-gray-500">
+              <h1 className="text-2xl font-bold" style={{ color: '#11120D' }}>Dashboard</h1>
+              <span className="ml-4 text-sm" style={{ color: '#565449' }}>
                 Welcome, {user.name}
               </span>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm" style={{ color: '#565449' }}>
                 {user.role === 'student' ? 'Student' : user.role === 'sub_admin' ? 'Sub Admin' : 'Super Admin'}
               </span>
-              <Button variant="outline" onClick={handleLogout}>
+              <Button variant="outline" className="sketch-button-auth" onClick={handleLogout}>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
               </Button>
@@ -184,49 +190,49 @@ export default function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {stats && (
           <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <Card>
+            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
               <CardContent className="p-6">
                 <div className="flex items-center">
-                  <MessageSquare className="h-8 w-8 text-blue-600" />
+                  <MessageSquare className="h-8 w-8" style={{ color: '#565449' }} />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Total</p>
-                    <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Total</p>
+                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{stats.total}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
               <CardContent className="p-6">
                 <div className="flex items-center">
-                  <Clock className="h-8 w-8 text-yellow-600" />
+                  <Clock className="h-8 w-8" style={{ color: '#C96A12' }} />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Pending</p>
-                    <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
+                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Pending</p>
+                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{stats.pending}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
               <CardContent className="p-6">
                 <div className="flex items-center">
-                  <AlertCircle className="h-8 w-8 text-blue-600" />
+                  <AlertCircle className="h-8 w-8" style={{ color: '#565449' }} />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">In Progress</p>
-                    <p className="text-2xl font-bold text-gray-900">{stats.in_progress}</p>
+                    <p className="text-sm font-medium" style={{ color: '#565449' }}>In Progress</p>
+                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{stats.in_progress}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
               <CardContent className="p-6">
                 <div className="flex items-center">
-                  <CheckCircle className="h-8 w-8 text-green-600" />
+                  <CheckCircle className="h-8 w-8" style={{ color: '#73865f' }} />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Resolved</p>
-                    <p className="text-2xl font-bold text-gray-900">{stats.resolved}</p>
+                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Resolved</p>
+                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{stats.resolved}</p>
                   </div>
                 </div>
               </CardContent>
@@ -237,7 +243,7 @@ export default function Dashboard() {
         {user.role === 'student' && (
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-900">My Complaints</h2>
+              <h2 className="text-xl font-bold" style={{ color: '#11120D' }}>My Complaints</h2>
               <Button onClick={() => setShowNewComplaint(true)}>
                 <Plus className="h-4 w-4 mr-2" />
                 New Complaint

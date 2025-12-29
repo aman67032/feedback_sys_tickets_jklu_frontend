@@ -120,7 +120,10 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: 'linear-gradient(to bottom right, #FFFBF4, #D8CFBC)' }}
+      >
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     );
@@ -129,21 +132,24 @@ export default function AdminDashboard() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b">
+    <div
+      className="min-h-screen"
+      style={{ background: 'linear-gradient(to bottom right, #FFFBF4, #D8CFBC)' }}
+    >
+      <header className="shadow-sm border-b" style={{ background: '#FFFBF4' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-              <span className="ml-4 text-sm text-gray-500">
+              <h1 className="text-2xl font-bold" style={{ color: '#11120D' }}>Admin Dashboard</h1>
+              <span className="ml-4 text-sm" style={{ color: '#565449' }}>
                 Super Admin Panel
               </span>
             </div>
             <div className="flex items-center space-x-4">
               <Link href="/dashboard">
-                <Button variant="outline">User Dashboard</Button>
+                <Button variant="outline" className="sketch-button-auth">User Dashboard</Button>
               </Link>
-              <Button variant="outline" onClick={handleLogout}>
+              <Button variant="outline" className="sketch-button-auth" onClick={handleLogout}>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
               </Button>
@@ -155,49 +161,49 @@ export default function AdminDashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {dashboardStats && (
           <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <Card>
+            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
               <CardContent className="p-6">
                 <div className="flex items-center">
-                  <Users className="h-8 w-8 text-blue-600" />
+                  <Users className="h-8 w-8" style={{ color: '#565449' }} />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Total Users</p>
-                    <p className="text-2xl font-bold text-gray-900">{dashboardStats.userStats.total}</p>
+                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Total Users</p>
+                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.userStats.total}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
               <CardContent className="p-6">
                 <div className="flex items-center">
-                  <MessageSquare className="h-8 w-8 text-green-600" />
+                  <MessageSquare className="h-8 w-8" style={{ color: '#73865f' }} />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Total Complaints</p>
-                    <p className="text-2xl font-bold text-gray-900">{dashboardStats.complaintStats.total}</p>
+                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Total Complaints</p>
+                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.complaintStats.total}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
               <CardContent className="p-6">
                 <div className="flex items-center">
-                  <Activity className="h-8 w-8 text-purple-600" />
+                  <Activity className="h-8 w-8" style={{ color: '#565449' }} />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Pending</p>
-                    <p className="text-2xl font-bold text-gray-900">{dashboardStats.complaintStats.pending}</p>
+                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Pending</p>
+                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.complaintStats.pending}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
               <CardContent className="p-6">
                 <div className="flex items-center">
-                  <Users className="h-8 w-8 text-red-600" />
+                  <Users className="h-8 w-8" style={{ color: '#C96A12' }} />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Inactive Users</p>
-                    <p className="text-2xl font-bold text-gray-900">{dashboardStats.userStats.inactive}</p>
+                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Inactive Users</p>
+                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.userStats.inactive}</p>
                   </div>
                 </div>
               </CardContent>
@@ -206,7 +212,7 @@ export default function AdminDashboard() {
         )}
 
         <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          <Card>
+          <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
             <CardHeader>
               <div className="flex justify-between items-center">
                 <CardTitle>User Management</CardTitle>
@@ -248,7 +254,7 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
             <CardHeader>
               <CardTitle>Recent Activity</CardTitle>
               <CardDescription>
@@ -278,7 +284,7 @@ export default function AdminDashboard() {
         </div>
 
         {showCreateUser && (
-          <Card>
+          <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
             <CardHeader>
               <CardTitle>Create New User</CardTitle>
               <CardDescription>
