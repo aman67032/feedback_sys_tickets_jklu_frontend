@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components.ui/Button';
+import { Button } from '@/components/ui/Button';
 import { complaintAPI, userAPI } from '@/lib/api';
 import { getUser, hasRole } from '@/lib/auth';
 import { Complaint, ComplaintStats, Domain, User } from '@/lib/types';
