@@ -138,18 +138,18 @@ export default function AdminDashboard() {
     >
       <header className="shadow-sm border-b" style={{ background: '#FFFBF4' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold" style={{ color: '#11120D' }}>Admin Dashboard</h1>
-              <span className="ml-4 text-sm" style={{ color: '#565449' }}>
+          <div className="flex flex-col sm:flex-row justify-between items-center h-auto sm:h-16 gap-3 py-3 sm:py-0">
+            <div className="flex flex-col sm:flex-row items-center text-center sm:text-left">
+              <h1 className="text-xl sm:text-2xl font-bold" style={{ color: '#11120D' }}>Admin Dashboard</h1>
+              <span className="sm:ml-4 text-xs sm:text-sm" style={{ color: '#565449' }}>
                 Super Admin Panel
               </span>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center flex-wrap justify-center sm:justify-end gap-2">
               <Link href="/dashboard">
-                <Button variant="outline" className="sketch-button-auth">User Dashboard</Button>
+                <Button variant="outline" className="sketch-button-auth w-full sm:w-auto">User Dashboard</Button>
               </Link>
-              <Button variant="outline" className="sketch-button-auth" onClick={handleLogout}>
+              <Button variant="outline" className="sketch-button-auth w-full sm:w-auto" onClick={handleLogout}>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
               </Button>

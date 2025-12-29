@@ -170,7 +170,7 @@ export default function Dashboard() {
       {/* Enhanced Header */}
       <header className="sketch-border-bottom py-0 flex-shrink-0 overflow-visible relative z-10" style={{ background: 'rgba(255, 251, 244, 0.95)', backdropFilter: 'blur(10px)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 py-4">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
                 <Image
@@ -197,20 +197,20 @@ export default function Dashboard() {
                 </span>
               </div>
             </div>
-            <nav className="flex items-center gap-3">
+            <nav className="flex items-center flex-wrap justify-center sm:justify-end gap-2">
               <Link href="/">
-                <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto">
+                <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto w-full sm:w-auto">
                   Home
                 </Button>
               </Link>
               {user.role === 'super_admin' && (
                 <Link href="/admin">
-                  <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto">
+                  <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto w-full sm:w-auto">
                     Admin
                   </Button>
                 </Link>
               )}
-              <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto" onClick={handleLogout}>
+              <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto w-full sm:w-auto" onClick={handleLogout}>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
               </Button>
@@ -448,10 +448,10 @@ export default function Dashboard() {
         {/* Complaints Section with Tabs */}
         <div className="mb-8">
           {/* Tab Navigation */}
-          <div className="flex gap-2 mb-6 border-b-2" style={{ borderColor: '#D8CFBC' }}>
+          <div className="flex gap-2 mb-6 border-b-2 overflow-x-auto pb-1" style={{ borderColor: '#D8CFBC' }}>
             <button
               onClick={() => setActiveTab('active')}
-              className={`px-6 py-3 font-semibold sketch-text transition-colors relative ${
+              className={`px-4 sm:px-6 py-2 sm:py-3 font-semibold sketch-text transition-colors relative whitespace-nowrap ${
                 activeTab === 'active'
                   ? 'text-orange-600'
                   : 'text-gray-600 hover:text-gray-800'
@@ -472,7 +472,7 @@ export default function Dashboard() {
             {resolvedComplaints.length > 0 && (
               <button
                 onClick={() => setActiveTab('resolved')}
-                className={`px-6 py-3 font-semibold sketch-text transition-colors relative ${
+                className={`px-4 sm:px-6 py-2 sm:py-3 font-semibold sketch-text transition-colors relative whitespace-nowrap ${
                   activeTab === 'resolved'
                     ? 'text-green-600'
                     : 'text-gray-600 hover:text-gray-800'
@@ -520,7 +520,10 @@ export default function Dashboard() {
                             <CardTitle className="text-xl flex items-center gap-2 sketch-text mb-2" style={{ color: '#1f2937' }}>
                               {complaint.title}
                               {user?.role === 'student' && complaint.adminSeen && (
-                                <CheckCheck className="h-5 w-5 text-blue-600" title="Seen by admin" />
+                                <span className="inline-flex items-center gap-1 text-xs text-blue-600">
+                                  <CheckCheck className="h-4 w-4" />
+                                  Seen by admin
+                                </span>
                               )}
                             </CardTitle>
                             <CardDescription className="sketch-text flex items-center gap-2 flex-wrap">
@@ -735,8 +738,7 @@ export default function Dashboard() {
                     name="toDomainId"
                     className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
                     style={{ 
-                      borderColor: '#D8CFBC',
-                      focusRingColor: '#F9A822'
+                      borderColor: '#D8CFBC'
                     }}
                     required
                   >
@@ -757,8 +759,7 @@ export default function Dashboard() {
                     rows={4}
                     className="w-full px-4 py-2 border-2 rounded-md sketch-border placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2"
                     style={{ 
-                      borderColor: '#D8CFBC',
-                      focusRingColor: '#F9A822'
+                      borderColor: '#D8CFBC'
                     }}
                     placeholder="Reason for transfer..."
                     required
