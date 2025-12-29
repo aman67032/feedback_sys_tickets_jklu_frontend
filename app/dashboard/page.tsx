@@ -192,9 +192,9 @@ export default function Dashboard() {
                 <Image
                   src="/Feedback_sys_logo.png"
                   alt="Feedback System Logo"
-                  width={80}
-                  height={80}
-                  className="sketch-logo"
+                  width={110}
+                  height={110}
+                  className="sketch-logo w-16 h-16 sm:w-28 sm:h-28"
                   style={{ objectFit: 'contain' }}
                 />
               </div>
