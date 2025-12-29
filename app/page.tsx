@@ -98,20 +98,22 @@ export default function Home() {
       <header className="sketch-border-bottom py-0 flex-shrink-0 overflow-visible relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <Image
                 src="/black_jklu_logo.png"
                 alt="JKLU Logo"
-                width={120}
-                height={120}
-                className="sketch-logo -mt-6 -mb-6"
+                width={68}
+                height={68}
+                className="sketch-logo"
+                style={{ objectFit: 'contain' }}
               />
               <Image
                 src="/Feedback_sys_logo.png"
                 alt="JKLU Feedback System Logo"
-                width={180}
-                height={180}
-                className="sketch-logo -mt-8 -mb-8"
+                width={110}
+                height={110}
+                className="sketch-logo"
+                style={{ objectFit: 'contain' }}
               />
             </div>
             <nav className="flex gap-2">
@@ -163,17 +165,28 @@ export default function Home() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-6">
-            <Link href="/register">
-              <Button size="lg" className="sketch-button-primary text-base px-6 py-3 h-auto">
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/login">
-              <Button size="lg" variant="outline" className="sketch-button text-base px-6 py-3 h-auto">
-                Already have an account?
-              </Button>
-            </Link>
+            {isLoggedIn ? (
+              <Link href="/dashboard">
+                <Button size="lg" className="sketch-button-primary text-base px-6 py-3 h-auto">
+                  Go to Dashboard
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link href="/register">
+                  <Button size="lg" className="sketch-button-primary text-base px-6 py-3 h-auto">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href="/login">
+                  <Button size="lg" variant="outline" className="sketch-button text-base px-6 py-3 h-auto">
+                    Already have an account?
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
 

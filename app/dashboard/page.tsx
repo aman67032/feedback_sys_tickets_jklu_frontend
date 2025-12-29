@@ -12,7 +12,7 @@ import { getUser, hasRole } from '@/lib/auth';
 import { Complaint, ComplaintStats, Domain, User } from '@/lib/types';
 import toast from 'react-hot-toast';
 import { formatDistanceToNow } from 'date-fns';
-import { Plus, MessageSquare, Clock, CheckCircle, AlertCircle, LogOut, Eye, ArrowRight, CheckCheck } from 'lucide-react';
+import { Plus, MessageSquare, Clock, CheckCircle, AlertCircle, LogOut, Eye, ArrowRight, CheckCheck, X, TrendingUp, FileText } from 'lucide-react';
 
 interface ComplaintFormData {
   title: string;
@@ -33,6 +33,7 @@ export default function Dashboard() {
   const [showNewComplaint, setShowNewComplaint] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
   const [selectedComplaint, setSelectedComplaint] = useState<Complaint | null>(null);
+  const [activeTab, setActiveTab] = useState<'active' | 'resolved'>('active');
   const router = useRouter();
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ComplaintFormData>();
 
@@ -131,30 +132,30 @@ export default function Dashboard() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'in_progress': return 'bg-blue-100 text-blue-800';
-      case 'resolved': return 'bg-green-100 text-green-800';
-      case 'rejected': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'in_progress': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'resolved': return 'bg-green-100 text-green-800 border-green-200';
+      case 'rejected': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'low': return 'bg-gray-100 text-gray-800';
-      case 'medium': return 'bg-orange-100 text-orange-800';
-      case 'high': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'low': return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'medium': return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'high': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
   if (loading) {
     return (
       <div
-        className="min-h-screen flex items-center justify-center"
-        style={{ background: 'linear-gradient(to bottom right, #FFFBF4, #D8CFBC)' }}
+        className="min-h-screen flex items-center justify-center sketch-bg"
+        style={{ background: 'linear-gradient(to bottom right, #FAECCB,rgba(75, 195, 236, 0.35),rgba(249, 168, 34, 0.4),rgb(43, 184, 116))' }}
       >
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderColor: '#F9A822' }}></div>
       </div>
     );
   }
@@ -163,50 +164,53 @@ export default function Dashboard() {
 
   return (
     <div
-      className="min-h-screen"
-      style={{ background: 'linear-gradient(to bottom right, #FFFBF4, #D8CFBC)' }}
+      className="min-h-screen sketch-bg"
+      style={{ background: 'linear-gradient(to bottom right, #FAECCB,rgba(75, 195, 236, 0.35),rgba(249, 168, 34, 0.4),rgb(43, 184, 116))' }}
     >
-      <header className="shadow-sm border-b" style={{ background: '#FFFBF4' }}>
+      {/* Enhanced Header */}
+      <header className="sketch-border-bottom py-0 flex-shrink-0 overflow-visible relative z-10" style={{ background: 'rgba(255, 251, 244, 0.95)', backdropFilter: 'blur(10px)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center py-4">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
                 <Image
                   src="/black_jklu_logo.png"
                   alt="JKLU Logo"
-                  width={50}
-                  height={50}
-                  className="sketch-logo -mt-1"
+                  width={60}
+                  height={60}
+                  className="sketch-logo"
+                  style={{ objectFit: 'contain' }}
                 />
                 <Image
                   src="/Feedback_sys_logo.png"
                   alt="Feedback System Logo"
-                  width={70}
-                  height={70}
-                  className="sketch-logo -mt-2"
+                  width={80}
+                  height={80}
+                  className="sketch-logo"
+                  style={{ objectFit: 'contain' }}
                 />
               </div>
               <div className="flex flex-col leading-tight">
-                <h1 className="text-lg sm:text-xl font-bold" style={{ color: '#11120D' }}>JKLU Feedback Dashboard</h1>
-                <span className="text-xs sm:text-sm" style={{ color: '#565449' }}>
+                <h1 className="text-lg sm:text-xl font-bold sketch-text" style={{ color: '#1f2937' }}>JKLU Feedback Dashboard</h1>
+                <span className="text-xs sm:text-sm sketch-text" style={{ color: '#73865f' }}>
                   Welcome, {user.name}
                 </span>
               </div>
             </div>
             <nav className="flex items-center gap-3">
               <Link href="/">
-                <Button variant="outline" className="sketch-button-auth text-xs sm:text-sm px-4 py-2 h-auto">
+                <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto">
                   Home
                 </Button>
               </Link>
               {user.role === 'super_admin' && (
                 <Link href="/admin">
-                  <Button variant="outline" className="sketch-button-auth text-xs sm:text-sm px-4 py-2 h-auto">
+                  <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto">
                     Admin
                   </Button>
                 </Link>
               )}
-              <Button variant="outline" className="sketch-button-auth text-xs sm:text-sm px-4 py-2 h-auto" onClick={handleLogout}>
+              <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto" onClick={handleLogout}>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
               </Button>
@@ -215,52 +219,61 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+        {/* Stats Cards - Enhanced Design */}
         {stats && (
           <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
+            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="flex items-center">
-                  <MessageSquare className="h-8 w-8" style={{ color: '#565449' }} />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Total</p>
-                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{stats.total}</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium sketch-text mb-1" style={{ color: '#565449' }}>Total Complaints</p>
+                    <p className="text-3xl font-bold sketch-text" style={{ color: '#1f2937' }}>{stats.total}</p>
+                  </div>
+                  <div className="p-3 rounded-full" style={{ background: 'rgba(86, 84, 73, 0.1)' }}>
+                    <MessageSquare className="h-6 w-6" style={{ color: '#565449' }} />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
+            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="flex items-center">
-                  <Clock className="h-8 w-8" style={{ color: '#C96A12' }} />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Pending</p>
-                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{stats.pending}</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium sketch-text mb-1" style={{ color: '#C96A12' }}>Pending</p>
+                    <p className="text-3xl font-bold sketch-text" style={{ color: '#1f2937' }}>{stats.pending}</p>
+                  </div>
+                  <div className="p-3 rounded-full" style={{ background: 'rgba(249, 168, 34, 0.15)' }}>
+                    <Clock className="h-6 w-6" style={{ color: '#F9A822' }} />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
+            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="flex items-center">
-                  <AlertCircle className="h-8 w-8" style={{ color: '#565449' }} />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium" style={{ color: '#565449' }}>In Progress</p>
-                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{stats.in_progress}</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium sketch-text mb-1" style={{ color: '#4B9BEC' }}>In Progress</p>
+                    <p className="text-3xl font-bold sketch-text" style={{ color: '#1f2937' }}>{stats.in_progress}</p>
+                  </div>
+                  <div className="p-3 rounded-full" style={{ background: 'rgba(75, 195, 236, 0.15)' }}>
+                    <TrendingUp className="h-6 w-6" style={{ color: '#4B9BEC' }} />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
+            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="flex items-center">
-                  <CheckCircle className="h-8 w-8" style={{ color: '#73865f' }} />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Resolved</p>
-                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{stats.resolved}</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium sketch-text mb-1" style={{ color: '#73865f' }}>Resolved</p>
+                    <p className="text-3xl font-bold sketch-text" style={{ color: '#1f2937' }}>{stats.resolved}</p>
+                  </div>
+                  <div className="p-3 rounded-full" style={{ background: 'rgba(43, 184, 116, 0.15)' }}>
+                    <CheckCircle className="h-6 w-6" style={{ color: '#2BBAA5' }} />
                   </div>
                 </div>
               </CardContent>
@@ -268,170 +281,396 @@ export default function Dashboard() {
           </div>
         )}
 
+        {/* New Complaint Button - Only for Students */}
         {user.role === 'student' && (
-          <div className="mb-8">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold" style={{ color: '#11120D' }}>My Complaints</h2>
-              <Button onClick={() => setShowNewComplaint(true)}>
-                <Plus className="h-4 w-4 mr-2" />
-                New Complaint
+          <div className="mb-6 flex justify-between items-center">
+            <h2 className="text-2xl font-bold sketch-text" style={{ color: '#1f2937' }}>My Complaints</h2>
+            <Button 
+              onClick={() => setShowNewComplaint(true)}
+              className="sketch-button-primary"
+              size="lg"
+            >
+              <Plus className="h-5 w-5 mr-2" />
+              New Complaint
+            </Button>
+          </div>
+        )}
+
+        {/* New Complaint Form Modal */}
+        {showNewComplaint && (
+          <Card className="mb-8 sketch-card bg-white/95 backdrop-blur-sm border-2">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle className="sketch-text text-xl" style={{ color: '#1f2937' }}>Submit New Complaint</CardTitle>
+                <CardDescription className="sketch-text">
+                  Fill in the details to submit a new complaint
+                </CardDescription>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowNewComplaint(false)}
+                className="h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
               </Button>
-            </div>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit(onSubmitComplaint)} className="space-y-5">
+                <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-md">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <AlertCircle className="h-5 w-5 text-amber-400" />
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm text-amber-800 sketch-text">
+                        <strong>Important Notice:</strong> Please ensure not to write any inappropriate words. 
+                        You are anonymous to the department you are sending this complaint to.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
+                      Title <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      {...register('title', { 
+                        required: 'Title is required',
+                        minLength: {
+                          value: 5,
+                          message: 'Title must be at least 5 characters'
+                        }
+                      })}
+                      type="text"
+                      className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
+                      style={{ 
+                        borderColor: '#D8CFBC',
+                        focusRingColor: '#F9A822'
+                      }}
+                      placeholder="Enter complaint title"
+                    />
+                    {errors.title && (
+                      <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
+                    )}
+                  </div>
 
-            {showNewComplaint && (
-              <Card className="mb-6">
-                <CardHeader>
-                  <CardTitle>Submit New Complaint</CardTitle>
-                  <CardDescription>
-                    Fill in the details to submit a new complaint
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit(onSubmitComplaint)} className="space-y-4">
-                    <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-md">
-                      <div className="flex">
-                        <div className="flex-shrink-0">
-                          <AlertCircle className="h-5 w-5 text-amber-400" />
-                        </div>
-                        <div className="ml-3">
-                          <p className="text-sm text-amber-800">
-                            <strong>Important Notice:</strong> Please ensure not to write any inappropriate words. 
-                            You are anonymous to the department you are sending this complaint to.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Title
-                      </label>
-                      <input
-                        {...register('title', { 
-                          required: 'Title is required',
-                          minLength: {
-                            value: 5,
-                            message: 'Title must be at least 5 characters'
-                          }
-                        })}
-                        type="text"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="Enter complaint title"
-                      />
-                      {errors.title && (
-                        <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
-                      )}
-                    </div>
+                  <div>
+                    <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
+                      Priority
+                    </label>
+                    <select
+                      {...register('priority')}
+                      className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
+                      style={{ 
+                        borderColor: '#D8CFBC',
+                        focusRingColor: '#F9A822'
+                      }}
+                    >
+                      <option value="low">Low</option>
+                      <option value="medium">Medium</option>
+                      <option value="high">High</option>
+                    </select>
+                  </div>
+                </div>
 
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Domain
-                      </label>
-                      <select
-                        {...register('domainId', { 
-                          required: 'Domain is required',
-                          valueAsNumber: true
-                        })}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      >
-                        <option value="">Select a domain</option>
-                        {domains.map((domain) => (
-                          <option key={domain.id} value={domain.id}>
-                            {domain.name}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.domainId && (
-                        <p className="mt-1 text-sm text-red-600">{errors.domainId.message}</p>
-                      )}
-                    </div>
+                <div>
+                  <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
+                    Domain <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    {...register('domainId', { 
+                      required: 'Domain is required',
+                      valueAsNumber: true
+                    })}
+                    className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    style={{ 
+                      borderColor: '#D8CFBC',
+                      focusRingColor: '#F9A822'
+                    }}
+                  >
+                    <option value="">Select a domain</option>
+                    {domains.map((domain) => (
+                      <option key={domain.id} value={domain.id}>
+                        {domain.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.domainId && (
+                    <p className="mt-1 text-sm text-red-600">{errors.domainId.message}</p>
+                  )}
+                </div>
 
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Priority
-                      </label>
-                      <select
-                        {...register('priority')}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      >
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                      </select>
-                    </div>
+                <div>
+                  <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
+                    Description <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    {...register('description', { 
+                      required: 'Description is required',
+                      minLength: {
+                        value: 10,
+                        message: 'Description must be at least 10 characters'
+                      }
+                    })}
+                    rows={5}
+                    className="w-full px-4 py-2 border-2 rounded-md sketch-border placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    style={{ 
+                      borderColor: '#D8CFBC',
+                      focusRingColor: '#F9A822'
+                    }}
+                    placeholder="Describe your complaint in detail..."
+                  />
+                  {errors.description && (
+                    <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
+                  )}
+                </div>
 
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        Description
-                      </label>
-                      <textarea
-                        {...register('description', { 
-                          required: 'Description is required',
-                          minLength: {
-                            value: 10,
-                            message: 'Description must be at least 10 characters'
-                          }
-                        })}
-                        rows={4}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="Describe your complaint in detail"
-                      />
-                      {errors.description && (
-                        <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
-                      )}
-                    </div>
+                <div className="flex space-x-4 pt-2">
+                  <Button type="submit" loading={submitting} disabled={submitting} className="sketch-button-primary">
+                    {submitting ? 'Submitting...' : 'Submit Complaint'}
+                  </Button>
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    onClick={() => {
+                      setShowNewComplaint(false);
+                      reset();
+                    }}
+                    className="sketch-button"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        )}
 
-                    <div className="flex space-x-4">
-                      <Button type="submit" loading={submitting} disabled={submitting}>
-                        {submitting ? 'Submitting...' : 'Submit Complaint'}
-                      </Button>
-                      <Button 
-                        type="button" 
-                        variant="outline" 
-                        onClick={() => setShowNewComplaint(false)}
-                      >
-                        Cancel
-                      </Button>
-                    </div>
-                  </form>
-                </CardContent>
-              </Card>
+        {/* Complaints Section with Tabs */}
+        <div className="mb-8">
+          {/* Tab Navigation */}
+          <div className="flex gap-2 mb-6 border-b-2" style={{ borderColor: '#D8CFBC' }}>
+            <button
+              onClick={() => setActiveTab('active')}
+              className={`px-6 py-3 font-semibold sketch-text transition-colors relative ${
+                activeTab === 'active'
+                  ? 'text-orange-600'
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+            >
+              Active Complaints
+              {activeTab === 'active' && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-600"></span>
+              )}
+              {activeComplaints.length > 0 && (
+                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                  activeTab === 'active' ? 'bg-orange-100 text-orange-800' : 'bg-gray-100 text-gray-600'
+                }`}>
+                  {activeComplaints.length}
+                </span>
+              )}
+            </button>
+            {resolvedComplaints.length > 0 && (
+              <button
+                onClick={() => setActiveTab('resolved')}
+                className={`px-6 py-3 font-semibold sketch-text transition-colors relative ${
+                  activeTab === 'resolved'
+                    ? 'text-green-600'
+                    : 'text-gray-600 hover:text-gray-800'
+                }`}
+              >
+                Resolved Complaints
+                {activeTab === 'resolved' && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-600"></span>
+                )}
+                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                  activeTab === 'resolved' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'
+                }`}>
+                  {resolvedComplaints.length}
+                </span>
+              </button>
             )}
           </div>
-        )}
 
-        {/* Resolved Complaints Section */}
-        {resolvedComplaints.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              Resolved Complaints ({resolvedComplaints.length})
-            </h2>
-            <div className="grid gap-4">
+          {/* Active Complaints */}
+          {activeTab === 'active' && (
+            <div>
+              {activeComplaints.length === 0 ? (
+                <Card className="sketch-card bg-white/90 backdrop-blur-sm">
+                  <CardContent className="text-center py-12">
+                    <FileText className="h-12 w-12 mx-auto mb-4" style={{ color: '#D8CFBC' }} />
+                    <p className="text-gray-600 sketch-text text-lg">No active complaints found.</p>
+                    {user.role === 'student' && (
+                      <Button 
+                        onClick={() => setShowNewComplaint(true)}
+                        className="mt-4 sketch-button-primary"
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Create Your First Complaint
+                      </Button>
+                    )}
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid gap-6">
+                  {activeComplaints.map((complaint) => (
+                    <Card key={complaint.id} className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
+                      <CardHeader>
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <CardTitle className="text-xl flex items-center gap-2 sketch-text mb-2" style={{ color: '#1f2937' }}>
+                              {complaint.title}
+                              {user?.role === 'student' && complaint.adminSeen && (
+                                <CheckCheck className="h-5 w-5 text-blue-600" title="Seen by admin" />
+                              )}
+                            </CardTitle>
+                            <CardDescription className="sketch-text flex items-center gap-2 flex-wrap">
+                              <span className="flex items-center gap-1">
+                                <MessageSquare className="h-4 w-4" />
+                                {complaint.domainName}
+                              </span>
+                              <span>•</span>
+                              <span>{safeFormatDate(complaint.createdAt)}</span>
+                              {user?.role === 'student' && complaint.adminSeen && (
+                                <>
+                                  <span>•</span>
+                                  <span className="text-blue-600">Seen by admin</span>
+                                </>
+                              )}
+                            </CardDescription>
+                          </div>
+                          <div className="flex gap-2 flex-wrap">
+                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(complaint.status)}`}>
+                              {complaint.status.replace('_', ' ')}
+                            </span>
+                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getPriorityColor(complaint.priority)}`}>
+                              {complaint.priority}
+                            </span>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
+                          <div className="bg-gray-50 p-4 rounded-lg border" style={{ borderColor: '#D8CFBC' }}>
+                            <p className="text-gray-700 sketch-text">{complaint.description}</p>
+                          </div>
+                          
+                          {user.role === 'super_admin' && complaint.studentName && (
+                            <div className="text-sm sketch-text p-3 bg-blue-50 rounded-lg" style={{ color: '#1f2937' }}>
+                              <strong>Student:</strong> {complaint.studentName} ({complaint.studentEmail})
+                            </div>
+                          )}
+                          
+                          {(user.role === 'sub_admin' || user.role === 'super_admin') && (
+                            <div className="flex flex-wrap gap-2 pt-2">
+                              {!complaint.adminSeen && (
+                                <Button 
+                                  size="sm" 
+                                  onClick={() => handleMarkSeen(complaint.id)}
+                                  className="sketch-button"
+                                >
+                                  <Eye className="h-4 w-4 mr-1" />
+                                  Mark Seen
+                                </Button>
+                              )}
+                              {complaint.status === 'pending' && (
+                                <Button 
+                                  size="sm" 
+                                  onClick={() => handleStatusUpdate(complaint.id, 'in_progress')}
+                                  className="sketch-button-primary"
+                                >
+                                  <Clock className="h-4 w-4 mr-1" />
+                                  Start Progress
+                                </Button>
+                              )}
+                              {complaint.status === 'in_progress' && (
+                                <>
+                                  <Button 
+                                    size="sm" 
+                                    onClick={() => {
+                                      const resolution = prompt('Enter resolution details:');
+                                      if (resolution) {
+                                        handleStatusUpdate(complaint.id, 'resolved', resolution);
+                                      }
+                                    }}
+                                    className="sketch-button-primary"
+                                  >
+                                    <CheckCircle className="h-4 w-4 mr-1" />
+                                    Resolve
+                                  </Button>
+                                  <Button 
+                                    size="sm" 
+                                    variant="outline"
+                                    onClick={() => handleStatusUpdate(complaint.id, 'rejected')}
+                                    className="sketch-button"
+                                  >
+                                    <AlertCircle className="h-4 w-4 mr-1" />
+                                    Reject
+                                  </Button>
+                                </>
+                              )}
+                              {user.role === 'super_admin' && (
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
+                                  onClick={() => {
+                                    setSelectedComplaint(complaint);
+                                    setShowTransferModal(true);
+                                  }}
+                                  className="sketch-button"
+                                >
+                                  <ArrowRight className="h-4 w-4 mr-1" />
+                                  Transfer
+                                </Button>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Resolved Complaints */}
+          {activeTab === 'resolved' && resolvedComplaints.length > 0 && (
+            <div className="grid gap-6">
               {resolvedComplaints.map((complaint) => (
-                <Card key={complaint.id} className="border-green-200 bg-green-50">
+                <Card key={complaint.id} className="sketch-card bg-white/90 backdrop-blur-sm border-2 border-green-200 hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <CardTitle className="text-lg flex items-center gap-2">
+                        <CardTitle className="text-xl flex items-center gap-2 sketch-text mb-2" style={{ color: '#1f2937' }}>
                           {complaint.title}
                           {user?.role === 'student' && complaint.adminSeen && (
-                            <CheckCheck className="h-4 w-4 text-blue-600" />
+                            <CheckCheck className="h-5 w-5 text-blue-600" />
                           )}
                         </CardTitle>
-                        <CardDescription>
-                          {complaint.domainName} • {safeFormatDate(complaint.createdAt)}
+                        <CardDescription className="sketch-text flex items-center gap-2 flex-wrap">
+                          <span className="flex items-center gap-1">
+                            <MessageSquare className="h-4 w-4" />
+                            {complaint.domainName}
+                          </span>
+                          <span>•</span>
+                          <span>Created {safeFormatDate(complaint.createdAt)}</span>
                           {complaint.resolvedAt && (
-                            <span className="ml-2 text-green-600">
-                              • Resolved {safeFormatDate(complaint.resolvedAt)}
-                            </span>
+                            <>
+                              <span>•</span>
+                              <span className="text-green-600">Resolved {safeFormatDate(complaint.resolvedAt)}</span>
+                            </>
                           )}
                         </CardDescription>
                       </div>
-                      <div className="flex space-x-2">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      <div className="flex gap-2">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
                           Resolved
                         </span>
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(complaint.priority)}`}>
+                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getPriorityColor(complaint.priority)}`}>
                           {complaint.priority}
                         </span>
                       </div>
@@ -439,159 +678,20 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      <div className="bg-white p-4 rounded-lg border border-green-200">
-                        <h5 className="font-medium text-green-800 text-sm mb-2">Problem:</h5>
-                        <p className="text-gray-700 text-sm">{complaint.description}</p>
+                      <div className="bg-gray-50 p-4 rounded-lg border" style={{ borderColor: '#D8CFBC' }}>
+                        <h5 className="font-semibold sketch-text mb-2" style={{ color: '#1f2937' }}>Problem:</h5>
+                        <p className="text-gray-700 sketch-text">{complaint.description}</p>
                       </div>
                       {complaint.resolutionDetails && (
-                        <div className="bg-white p-4 rounded-lg border border-green-200">
-                          <h5 className="font-medium text-green-800 text-sm mb-2">Solution:</h5>
-                          <p className="text-gray-700 text-sm">{complaint.resolutionDetails}</p>
+                        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                          <h5 className="font-semibold sketch-text mb-2 flex items-center gap-2" style={{ color: '#2BBAA5' }}>
+                            <CheckCircle className="h-5 w-5" />
+                            Solution:
+                          </h5>
+                          <p className="text-gray-700 sketch-text">{complaint.resolutionDetails}</p>
                         </div>
                       )}
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Active Complaints Section */}
-        <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            {user.role === 'student' ? 'Your Complaints' : 'Active Complaints'} ({activeComplaints.length})
-          </h2>
-          {activeComplaints.length === 0 ? (
-            <Card>
-              <CardContent className="text-center py-8">
-                <p className="text-gray-600">No complaints found.</p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid gap-4">
-              {activeComplaints.map((complaint) => (
-                <Card key={complaint.id}>
-                  <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <CardTitle className="text-lg flex items-center gap-2">
-                          {complaint.title}
-                          {user?.role === 'student' && complaint.adminSeen && (
-                            <CheckCheck className="h-4 w-4 text-blue-600" />
-                          )}
-                        </CardTitle>
-                        <CardDescription>
-                          {complaint.domainName} • {safeFormatDate(complaint.createdAt)}
-                          {user?.role === 'student' && complaint.adminSeen && (
-                            <span className="ml-2 text-blue-600">• Seen by admin</span>
-                          )}
-                        </CardDescription>
-                      </div>
-                      <div className="flex space-x-2">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(complaint.status)}`}>
-                          {complaint.status.replace('_', ' ')}
-                        </span>
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(complaint.priority)}`}>
-                          {complaint.priority}
-                        </span>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-700 mb-2">{complaint.description}</p>
-                    {complaint.status === 'resolved' && complaint.resolutionDetails && (
-                      <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
-                        <h4 className="font-semibold text-green-900 mb-2 flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4" />
-                          Problem & Solution
-                        </h4>
-                        <div className="space-y-3">
-                          <div>
-                            <h5 className="font-medium text-green-800 text-sm">Problem:</h5>
-                            <p className="text-gray-700 text-sm">{complaint.description}</p>
-                          </div>
-                          <div>
-                            <h5 className="font-medium text-green-800 text-sm">Solution:</h5>
-                            <p className="text-gray-700 text-sm">{complaint.resolutionDetails}</p>
-                          </div>
-                          {complaint.resolvedAt && (
-                            <p className="text-xs text-green-600">
-                              Resolved {safeFormatDate(complaint.resolvedAt)}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                    {user.role === 'super_admin' && complaint.studentName && (
-                      <div className="mt-2 text-sm text-gray-600">
-                        <strong>Student:</strong> {complaint.studentName} ({complaint.studentEmail})
-                      </div>
-                    )}
-                    {(user.role === 'sub_admin' || user.role === 'super_admin') && (
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {!complaint.adminSeen && (
-                          <Button 
-                            size="sm" 
-                            onClick={() => handleMarkSeen(complaint.id)}
-                            className="text-xs"
-                          >
-                            <Eye className="h-3 w-3 mr-1" />
-                            Mark Seen
-                          </Button>
-                        )}
-                        {complaint.status === 'pending' && (
-                          <Button 
-                            size="sm" 
-                            onClick={() => handleStatusUpdate(complaint.id, 'in_progress')}
-                            className="text-xs"
-                          >
-                            <Clock className="h-3 w-3 mr-1" />
-                            Start Progress
-                          </Button>
-                        )}
-                        {complaint.status === 'in_progress' && (
-                          <>
-                            <Button 
-                              size="sm" 
-                              onClick={() => {
-                                const resolution = prompt('Enter resolution details:');
-                                if (resolution) {
-                                  handleStatusUpdate(complaint.id, 'resolved', resolution);
-                                }
-                              }}
-                              className="text-xs"
-                            >
-                              <CheckCircle className="h-3 w-3 mr-1" />
-                              Resolve
-                            </Button>
-                            <Button 
-                              size="sm" 
-                              variant="outline"
-                              onClick={() => handleStatusUpdate(complaint.id, 'rejected')}
-                              className="text-xs"
-                            >
-                              <AlertCircle className="h-3 w-3 mr-1" />
-                              Reject
-                            </Button>
-                          </>
-                        )}
-                        {user.role === 'super_admin' && (
-                          <Button 
-                            size="sm" 
-                            variant="outline"
-                            onClick={() => {
-                              setSelectedComplaint(complaint);
-                              setShowTransferModal(true);
-                            }}
-                            className="text-xs"
-                          >
-                            <ArrowRight className="h-3 w-3 mr-1" />
-                            Transfer
-                          </Button>
-                        )}
-                      </div>
-                    )}
                   </CardContent>
                 </Card>
               ))}
@@ -600,14 +700,28 @@ export default function Dashboard() {
         </div>
       </main>
 
+      {/* Transfer Modal */}
       {showTransferModal && selectedComplaint && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <Card className="w-full max-w-md">
-            <CardHeader>
-              <CardTitle>Transfer Complaint</CardTitle>
-              <CardDescription>
-                Transfer "{selectedComplaint.title}" to another domain
-              </CardDescription>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <Card className="w-full max-w-md sketch-card bg-white/95 backdrop-blur-sm border-2">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle className="sketch-text" style={{ color: '#1f2937' }}>Transfer Complaint</CardTitle>
+                <CardDescription className="sketch-text">
+                  Transfer "{selectedComplaint.title}" to another domain
+                </CardDescription>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setShowTransferModal(false);
+                  setSelectedComplaint(null);
+                }}
+                className="h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </CardHeader>
             <CardContent>
               <form onSubmit={(e) => {
@@ -618,12 +732,16 @@ export default function Dashboard() {
                 handleTransfer(selectedComplaint.id, toDomainId, reason);
               }} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Target Domain
+                  <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
+                    Target Domain <span className="text-red-500">*</span>
                   </label>
                   <select
                     name="toDomainId"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    style={{ 
+                      borderColor: '#D8CFBC',
+                      focusRingColor: '#F9A822'
+                    }}
                     required
                   >
                     <option value="">Select a domain</option>
@@ -635,19 +753,23 @@ export default function Dashboard() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Transfer Reason
+                  <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
+                    Transfer Reason <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     name="reason"
-                    rows={3}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    placeholder="Reason for transfer"
+                    rows={4}
+                    className="w-full px-4 py-2 border-2 rounded-md sketch-border placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    style={{ 
+                      borderColor: '#D8CFBC',
+                      focusRingColor: '#F9A822'
+                    }}
+                    placeholder="Reason for transfer..."
                     required
                   />
                 </div>
-                <div className="flex space-x-4">
-                  <Button type="submit">Transfer</Button>
+                <div className="flex space-x-4 pt-2">
+                  <Button type="submit" className="sketch-button-primary">Transfer</Button>
                   <Button 
                     type="button" 
                     variant="outline" 
@@ -655,6 +777,7 @@ export default function Dashboard() {
                       setShowTransferModal(false);
                       setSelectedComplaint(null);
                     }}
+                    className="sketch-button"
                   >
                     Cancel
                   </Button>
