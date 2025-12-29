@@ -347,8 +347,7 @@ export default function Dashboard() {
                       type="text"
                       className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
                       style={{ 
-                        borderColor: '#D8CFBC',
-                        focusRingColor: '#F9A822'
+                        borderColor: '#D8CFBC'
                       }}
                       placeholder="Enter complaint title"
                     />
@@ -365,8 +364,7 @@ export default function Dashboard() {
                       {...register('priority')}
                       className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
                       style={{ 
-                        borderColor: '#D8CFBC',
-                        focusRingColor: '#F9A822'
+                        borderColor: '#D8CFBC'
                       }}
                     >
                       <option value="low">Low</option>
@@ -387,8 +385,7 @@ export default function Dashboard() {
                     })}
                     className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
                     style={{ 
-                      borderColor: '#D8CFBC',
-                      focusRingColor: '#F9A822'
+                      borderColor: '#D8CFBC'
                     }}
                   >
                     <option value="">Select a domain</option>
@@ -418,8 +415,7 @@ export default function Dashboard() {
                     rows={5}
                     className="w-full px-4 py-2 border-2 rounded-md sketch-border placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2"
                     style={{ 
-                      borderColor: '#D8CFBC',
-                      focusRingColor: '#F9A822'
+                      borderColor: '#D8CFBC'
                     }}
                     placeholder="Describe your complaint in detail..."
                   />
