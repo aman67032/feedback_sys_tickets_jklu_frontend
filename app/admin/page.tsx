@@ -55,8 +55,14 @@ export default function AdminDashboard() {
         adminAPI.getAuditLogs({ limit: 10 }),
         adminAPI.getDashboard()
       ]);
-      
-      setUsers(usersRes.data.users);
+
+      // Normalize API shape to match frontend User type (is_active -> isActive)
+      const normalizedUsers: User[] = usersRes.data.users.map((u: any) => ({
+        ...u,
+        isActive: u.isActive ?? u.is_active, // support both shapes
+      }));
+
+      setUsers(normalizedUsers);
       setDomains(domainsRes.data.domains);
       setAuditLogs(logsRes.data.logs);
       setDashboardStats(dashboardRes.data);
