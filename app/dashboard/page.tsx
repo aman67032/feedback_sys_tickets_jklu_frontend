@@ -12,7 +12,7 @@ import { getUser, hasRole } from '@/lib/auth';
 import { Complaint, ComplaintStats, Domain, User } from '@/lib/types';
 import toast from 'react-hot-toast';
 import { formatDistanceToNow } from 'date-fns';
-import { Plus, MessageSquare, Clock, CheckCircle, AlertCircle, LogOut, Eye, ArrowRight, CheckCheck, X, TrendingUp, FileText } from 'lucide-react';
+import { Plus, MessageSquare, Clock, CheckCircle, AlertCircle, LogOut, Eye, ArrowRight, CheckCheck, X, TrendingUp, FileText, Filter } from 'lucide-react';
 
 interface ComplaintFormData {
   title: string;
@@ -33,6 +33,7 @@ export default function Dashboard() {
   const [showNewComplaint, setShowNewComplaint] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
   const [selectedComplaint, setSelectedComplaint] = useState<Complaint | null>(null);
+  const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'in_progress' | 'rejected'>('all');
   const [activeTab, setActiveTab] = useState<'active' | 'resolved'>('active');
   const router = useRouter();
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ComplaintFormData>();
@@ -162,6 +163,11 @@ export default function Dashboard() {
 
   if (!user) return null;
 
+  const filteredActiveComplaints = activeComplaints.filter((complaint) => {
+    if (statusFilter === 'all') return true;
+    return complaint.status === statusFilter;
+  });
+
   return (
     <div
       className="min-h-screen sketch-bg"
@@ -194,6 +200,18 @@ export default function Dashboard() {
                 <h1 className="text-lg sm:text-xl font-bold sketch-text" style={{ color: '#1f2937' }}>JKLU Feedback Dashboard</h1>
                 <span className="text-xs sm:text-sm sketch-text" style={{ color: '#73865f' }}>
                   Welcome, {user.name}
+                </span>
+                <span className="mt-1 inline-flex items-center gap-2 text-[11px] sm:text-xs font-medium">
+                  <span className="px-2 py-0.5 rounded-full bg-white/70 border border-[#D8CFBC] uppercase tracking-wide">
+                    {user.role === 'student' && 'Student'}
+                    {user.role === 'sub_admin' && 'Sub Admin'}
+                    {user.role === 'super_admin' && 'Super Admin'}
+                  </span>
+                  {user.role === 'sub_admin' && user.domainName && (
+                    <span className="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700">
+                      Domain: {user.domainName}
+                    </span>
+                  )}
                 </span>
               </div>
             </div>
@@ -447,6 +465,37 @@ export default function Dashboard() {
 
         {/* Complaints Section with Tabs */}
         <div className="mb-8">
+          {/* Quick Filters (role-aware) */}
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1 text-xs sm:text-sm text-gray-700">
+              <Filter className="h-3 w-3 sm:h-4 sm:w-4" />
+              Quick filters:
+            </span>
+            {['all', 'pending', 'in_progress', 'rejected'].map((value) => {
+              const label =
+                value === 'all'
+                  ? 'All'
+                  : value === 'in_progress'
+                  ? 'In progress'
+                  : value.charAt(0).toUpperCase() + value.slice(1);
+              const isActive = statusFilter === value;
+              return (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setStatusFilter(value as typeof statusFilter)}
+                  className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                    isActive
+                      ? 'bg-orange-100 text-orange-800 border-orange-300'
+                      : 'bg-white/80 text-gray-700 border-[#D8CFBC] hover:bg-gray-50'
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+
           {/* Tab Navigation */}
           <div className="flex gap-2 mb-6 border-b-2 overflow-x-auto pb-1" style={{ borderColor: '#D8CFBC' }}>
             <button
@@ -494,11 +543,15 @@ export default function Dashboard() {
           {/* Active Complaints */}
           {activeTab === 'active' && (
             <div>
-              {activeComplaints.length === 0 ? (
+              {filteredActiveComplaints.length === 0 ? (
                 <Card className="sketch-card bg-white/90 backdrop-blur-sm">
                   <CardContent className="text-center py-12">
                     <FileText className="h-12 w-12 mx-auto mb-4" style={{ color: '#D8CFBC' }} />
-                    <p className="text-gray-600 sketch-text text-lg">No active complaints found.</p>
+                    <p className="text-gray-600 sketch-text text-lg">
+                      {statusFilter === 'all'
+                        ? 'No active complaints found.'
+                        : 'No complaints match the selected filter.'}
+                    </p>
                     {user.role === 'student' && (
                       <Button 
                         onClick={() => setShowNewComplaint(true)}
@@ -512,7 +565,7 @@ export default function Dashboard() {
                 </Card>
               ) : (
                 <div className="grid gap-6">
-                  {activeComplaints.map((complaint) => (
+                  {filteredActiveComplaints.map((complaint) => (
                     <Card key={complaint.id} className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
                       <CardHeader>
                         <div className="flex justify-between items-start">

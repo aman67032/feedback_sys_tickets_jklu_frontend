@@ -11,7 +11,7 @@ import { getUser } from '@/lib/auth';
 import { User, Domain, AuditLog } from '@/lib/types';
 import toast from 'react-hot-toast';
 import { formatDistanceToNow } from 'date-fns';
-import { Users, MessageSquare, Activity, LogOut, Plus, Eye, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Users, MessageSquare, Activity, LogOut, Plus, Eye, ToggleLeft, ToggleRight, Filter } from 'lucide-react';
 
 interface CreateUserData {
   email: string;
@@ -31,6 +31,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [showCreateUser, setShowCreateUser] = useState(false);
   const [creating, setCreating] = useState(false);
+  const [userRoleFilter, setUserRoleFilter] = useState<'all' | 'student' | 'sub_admin' | 'super_admin'>('all');
   const router = useRouter();
   const { register, handleSubmit, reset, watch, formState: { errors } } = useForm<CreateUserData>();
 
@@ -131,6 +132,10 @@ export default function AdminDashboard() {
 
   if (!user) return null;
 
+  const filteredUsers = userRoleFilter === 'all'
+    ? users
+    : users.filter((u) => u.role === userRoleFilter);
+
   return (
     <div
       className="min-h-screen"
@@ -140,9 +145,17 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center h-auto sm:h-16 gap-3 py-3 sm:py-0">
             <div className="flex flex-col sm:flex-row items-center text-center sm:text-left">
-              <h1 className="text-xl sm:text-2xl font-bold" style={{ color: '#11120D' }}>Admin Dashboard</h1>
-              <span className="sm:ml-4 text-xs sm:text-sm" style={{ color: '#565449' }}>
-                Super Admin Panel
+              <div className="flex flex-col">
+                <h1 className="text-xl sm:text-2xl font-bold" style={{ color: '#11120D' }}>Admin Dashboard</h1>
+                <span className="text-xs sm:text-sm" style={{ color: '#565449' }}>
+                  Super Admin Panel
+                </span>
+                <span className="mt-1 text-[11px] sm:text-xs text-gray-700">
+                  Logged in as <span className="font-semibold">{user.name}</span> ({user.email})
+                </span>
+              </div>
+              <span className="mt-2 sm:mt-0 sm:ml-4 px-2 py-0.5 rounded-full text-[11px] sm:text-xs font-medium bg-red-50 text-red-700 border border-red-200 uppercase tracking-wide">
+                Super Admin
               </span>
             </div>
             <div className="flex items-center flex-wrap justify-center sm:justify-end gap-2">
@@ -161,49 +174,57 @@ export default function AdminDashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {dashboardStats && (
           <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
+            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="flex items-center">
-                  <Users className="h-8 w-8" style={{ color: '#565449' }} />
-                  <div className="ml-4">
+                <div className="flex items-center justify-between">
+                  <div>
                     <p className="text-sm font-medium" style={{ color: '#565449' }}>Total Users</p>
-                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.userStats.total}</p>
+                    <p className="text-3xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.userStats.total}</p>
+                  </div>
+                  <div className="p-3 rounded-full" style={{ background: 'rgba(86, 84, 73, 0.1)' }}>
+                    <Users className="h-6 w-6" style={{ color: '#565449' }} />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
+            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="flex items-center">
-                  <MessageSquare className="h-8 w-8" style={{ color: '#73865f' }} />
-                  <div className="ml-4">
+                <div className="flex items-center justify-between">
+                  <div>
                     <p className="text-sm font-medium" style={{ color: '#565449' }}>Total Complaints</p>
-                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.complaintStats.total}</p>
+                    <p className="text-3xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.complaintStats.total}</p>
+                  </div>
+                  <div className="p-3 rounded-full" style={{ background: 'rgba(147, 211, 174, 0.15)' }}>
+                    <MessageSquare className="h-6 w-6" style={{ color: '#73865f' }} />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
+            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="flex items-center">
-                  <Activity className="h-8 w-8" style={{ color: '#565449' }} />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Pending</p>
-                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.complaintStats.pending}</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium" style={{ color: '#565449' }}>Pending Complaints</p>
+                    <p className="text-3xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.complaintStats.pending}</p>
+                  </div>
+                  <div className="p-3 rounded-full" style={{ background: 'rgba(249, 168, 34, 0.15)' }}>
+                    <Activity className="h-6 w-6" style={{ color: '#C96A12' }} />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
+            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="flex items-center">
-                  <Users className="h-8 w-8" style={{ color: '#C96A12' }} />
-                  <div className="ml-4">
+                <div className="flex items-center justify-between">
+                  <div>
                     <p className="text-sm font-medium" style={{ color: '#565449' }}>Inactive Users</p>
-                    <p className="text-2xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.userStats.inactive}</p>
+                    <p className="text-3xl font-bold" style={{ color: '#11120D' }}>{dashboardStats.userStats.inactive}</p>
+                  </div>
+                  <div className="p-3 rounded-full" style={{ background: 'rgba(201, 106, 18, 0.12)' }}>
+                    <Users className="h-6 w-6" style={{ color: '#C96A12' }} />
                   </div>
                 </div>
               </CardContent>
@@ -212,7 +233,7 @@ export default function AdminDashboard() {
         )}
 
         <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
+          <Card className="sketch-card bg-white/90 border-2 border-[#D8CFBC]">
             <CardHeader>
               <div className="flex justify-between items-center">
                 <CardTitle>User Management</CardTitle>
@@ -222,39 +243,73 @@ export default function AdminDashboard() {
                 </Button>
               </div>
               <CardDescription>
-                Manage system users and their access
+                Manage system users, roles, and access
               </CardDescription>
             </CardHeader>
             <CardContent>
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <span className="inline-flex items-center gap-1 text-xs text-gray-700">
+                  <Filter className="h-3 w-3" />
+                  Filter by role:
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { value: 'all', label: 'All' },
+                    { value: 'student', label: 'Students' },
+                    { value: 'sub_admin', label: 'Sub Admins' },
+                    { value: 'super_admin', label: 'Super Admins' },
+                  ].map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => setUserRoleFilter(opt.value as typeof userRoleFilter)}
+                      className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                        userRoleFilter === opt.value
+                          ? 'bg-orange-100 text-orange-800 border-orange-300'
+                          : 'bg-white text-gray-700 border-[#D8CFBC] hover:bg-gray-50'
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div className="space-y-4">
-                {users.slice(0, 5).map((userItem) => (
-                  <div key={userItem.id} className="flex items-center justify-between p-3 border rounded-lg">
-                    <div>
-                      <p className="font-medium">{userItem.name}</p>
-                      <p className="text-sm text-gray-600">{userItem.email}</p>
+                {filteredUsers.length === 0 ? (
+                  <p className="text-sm text-gray-600">
+                    No users found for the selected filter.
+                  </p>
+                ) : (
+                  filteredUsers.slice(0, 5).map((userItem) => (
+                    <div key={userItem.id} className="flex items-center justify-between p-3 border rounded-lg bg-white/70">
+                      <div>
+                        <p className="font-medium">{userItem.name}</p>
+                        <p className="text-xs text-gray-600">{userItem.email}</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleColor(userItem.role)}`}>
+                          {userItem.role.replace('_', ' ')}
+                        </span>
+                        <button
+                          onClick={() => handleToggleUser(userItem.id)}
+                          className="p-1 rounded hover:bg-gray-100"
+                        >
+                          {userItem.isActive ? (
+                            <ToggleRight className="h-5 w-5 text-green-600" />
+                          ) : (
+                            <ToggleLeft className="h-5 w-5 text-red-600" />
+                          )}
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleColor(userItem.role)}`}>
-                        {userItem.role.replace('_', ' ')}
-                      </span>
-                      <button
-                        onClick={() => handleToggleUser(userItem.id)}
-                        className="p-1 rounded hover:bg-gray-100"
-                      >
-                        {userItem.isActive ? (
-                          <ToggleRight className="h-5 w-5 text-green-600" />
-                        ) : (
-                          <ToggleLeft className="h-5 w-5 text-red-600" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-[#FFFBF4] border-[#D8CFBC]">
+          <Card className="sketch-card bg-white/90 border-2 border-[#D8CFBC]">
             <CardHeader>
               <CardTitle>Recent Activity</CardTitle>
               <CardDescription>
@@ -263,21 +318,25 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {auditLogs.map((log) => (
-                  <div key={log.id} className="p-3 border rounded-lg">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="font-medium">{log.action}</p>
-                        <p className="text-sm text-gray-600">
-                          {log.userName} • {log.resourceType}
+                {auditLogs.length === 0 ? (
+                  <p className="text-sm text-gray-600">No recent activity yet.</p>
+                ) : (
+                  auditLogs.map((log) => (
+                    <div key={log.id} className="p-3 border rounded-lg bg-white/70">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p className="font-medium">{log.action}</p>
+                          <p className="text-xs text-gray-600">
+                            {log.userName || 'System'} • {log.resourceType}
+                          </p>
+                        </div>
+                        <p className="text-xs text-gray-500">
+                          {safeFormatDate(log.createdAt)}
                         </p>
                       </div>
-                      <p className="text-xs text-gray-500">
-                        {safeFormatDate(log.createdAt)}
-                      </p>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </CardContent>
           </Card>
