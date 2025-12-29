@@ -55,7 +55,7 @@ export const userAPI = {
 export const adminAPI = {
   getUsers: (params?: any) => api.get('/admin/users', { params }),
   createUser: (userData: any) => api.post('/admin/users', userData),
-  toggleUser: (id: string) => api.put(`/admin/users/${id}/toggle`),
+  toggleUser: (id: string, data?: any) => api.put(`/admin/users/${id}/toggle`, data),
   getAuditLogs: (params?: any) => api.get('/admin/audit-logs', { params }),
   getDashboard: () => api.get('/admin/dashboard'),
 };

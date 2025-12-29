@@ -17,11 +17,13 @@ interface LoginFormData {
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
+  const [disabledReason, setDisabledReason] = useState<string | null>(null);
   const router = useRouter();
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
 
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
+    setDisabledReason(null);
     try {
       const response = await authAPI.login(data);
       setToken(response.data.token);
@@ -31,7 +33,15 @@ export default function Login() {
       const redirectPath = response.data.user.role === 'super_admin' ? '/admin' : '/dashboard';
       router.push(redirectPath);
     } catch (error: any) {
-      toast.error(error.response?.data?.error || 'Login failed');
+      const disabled = error?.response?.data?.disabled;
+      const reason = error?.response?.data?.reason;
+
+      if (disabled) {
+        setDisabledReason(reason || 'Your account has been disabled by the administrator.');
+        toast.error('Your account is disabled.');
+      } else {
+        toast.error(error.response?.data?.error || 'Login failed');
+      }
     } finally {
       setLoading(false);
     }
@@ -93,6 +103,13 @@ export default function Login() {
               </Link>
             </p>
           </div>
+
+          {disabledReason && (
+            <div className="mb-4 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 text-left">
+              <p className="font-semibold mb-1">Your account has been disabled</p>
+              <p>{disabledReason}</p>
+            </div>
+          )}
 
           <Card className="border-none shadow-none bg-transparent">
             <CardContent className="p-0">

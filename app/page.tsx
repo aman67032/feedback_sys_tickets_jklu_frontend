@@ -15,7 +15,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-screen sketch-bg flex flex-col overflow-hidden relative" style={{
+    <div className="min-h-screen sketch-bg flex flex-col overflow-x-hidden relative" style={{
       background: 'linear-gradient(to bottom right, #FAECCB,rgba(75, 195, 236, 0.35),rgba(249, 168, 34, 0.4),rgb(43, 184, 116))'
     }}>
       {/* Unique Background with Gradients and Tickets */}

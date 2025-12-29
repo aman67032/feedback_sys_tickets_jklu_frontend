@@ -83,9 +83,20 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleToggleUser = async (userId: number) => {
+  const handleToggleUser = async (userItem: User) => {
     try {
-      await adminAPI.toggleUser(userId.toString());
+      let payload: any = undefined;
+
+      if (userItem.isActive) {
+        const reason = window.prompt('Enter reason for disabling this account (required):');
+        if (!reason) {
+          toast.error('Disable reason is required.');
+          return;
+        }
+        payload = { reason };
+      }
+
+      await adminAPI.toggleUser(userItem.id.toString(), payload);
       toast.success('User status updated successfully!');
       fetchData();
     } catch (error: any) {
@@ -292,7 +303,7 @@ export default function AdminDashboard() {
                           {userItem.role.replace('_', ' ')}
                         </span>
                         <button
-                          onClick={() => handleToggleUser(userItem.id)}
+                          onClick={() => handleToggleUser(userItem)}
                           className="p-1 rounded hover:bg-gray-100"
                         >
                           {userItem.isActive ? (
