@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components.ui/Button';
 import { complaintAPI, userAPI } from '@/lib/api';
 import { getUser, hasRole } from '@/lib/auth';
 import { Complaint, ComplaintStats, Domain, User } from '@/lib/types';
@@ -168,21 +169,48 @@ export default function Dashboard() {
       <header className="shadow-sm border-b" style={{ background: '#FFFBF4' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold" style={{ color: '#11120D' }}>Dashboard</h1>
-              <span className="ml-4 text-sm" style={{ color: '#565449' }}>
-                Welcome, {user.name}
-              </span>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/black_jklu_logo.png"
+                  alt="JKLU Logo"
+                  width={50}
+                  height={50}
+                  className="sketch-logo -mt-1"
+                />
+                <Image
+                  src="/Feedback_sys_logo.png"
+                  alt="Feedback System Logo"
+                  width={70}
+                  height={70}
+                  className="sketch-logo -mt-2"
+                />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <h1 className="text-lg sm:text-xl font-bold" style={{ color: '#11120D' }}>JKLU Feedback Dashboard</h1>
+                <span className="text-xs sm:text-sm" style={{ color: '#565449' }}>
+                  Welcome, {user.name}
+                </span>
+              </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm" style={{ color: '#565449' }}>
-                {user.role === 'student' ? 'Student' : user.role === 'sub_admin' ? 'Sub Admin' : 'Super Admin'}
-              </span>
-              <Button variant="outline" className="sketch-button-auth" onClick={handleLogout}>
+            <nav className="flex items-center gap-3">
+              <Link href="/">
+                <Button variant="outline" className="sketch-button-auth text-xs sm:text-sm px-4 py-2 h-auto">
+                  Home
+                </Button>
+              </Link>
+              {user.role === 'super_admin' && (
+                <Link href="/admin">
+                  <Button variant="outline" className="sketch-button-auth text-xs sm:text-sm px-4 py-2 h-auto">
+                    Admin
+                  </Button>
+                </Link>
+              )}
+              <Button variant="outline" className="sketch-button-auth text-xs sm:text-sm px-4 py-2 h-auto" onClick={handleLogout}>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
               </Button>
-            </div>
+            </nav>
           </div>
         </div>
       </header>
