@@ -288,6 +288,19 @@ export default function Dashboard() {
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit(onSubmitComplaint)} className="space-y-4">
+                    <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-md">
+                      <div className="flex">
+                        <div className="flex-shrink-0">
+                          <AlertCircle className="h-5 w-5 text-amber-400" />
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-sm text-amber-800">
+                            <strong>Important Notice:</strong> Please ensure not to write any inappropriate words. 
+                            You are anonymous to the department you are sending this complaint to.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
                         Title

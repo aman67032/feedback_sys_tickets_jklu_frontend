@@ -1,11 +1,19 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { MessageSquare, ArrowRight, CheckCircle2, Zap } from 'lucide-react';
+import { getUser, isAuthenticated } from '@/lib/auth';
 
 export default function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(isAuthenticated());
+  }, []);
+
   return (
     <div className="h-screen sketch-bg flex flex-col overflow-hidden relative" style={{
       background: 'linear-gradient(to bottom right, #FAECCB,rgba(75, 195, 236, 0.35),rgba(249, 168, 34, 0.4),rgb(43, 184, 116))'
@@ -107,16 +115,27 @@ export default function Home() {
               />
             </div>
             <nav className="flex gap-2">
-              <Link href="/login">
-                <Button variant="outline" className="sketch-button text-sm px-4 py-2 h-auto">
-                  Login
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button className="sketch-button-primary text-sm px-4 py-2 h-auto">
-                  Register
-                </Button>
-              </Link>
+              {isLoggedIn ? (
+                <Link href="/dashboard">
+                  <Button className="sketch-button-primary text-sm px-4 py-2 h-auto">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              ) : (
+                <>
+                  <Link href="/login">
+                    <Button variant="outline" className="sketch-button text-sm px-4 py-2 h-auto">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <Button className="sketch-button-primary text-sm px-4 py-2 h-auto">
+                      Register
+                    </Button>
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
         </div>
