@@ -80,10 +80,18 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-8">
             {isLoggedIn ? (
               <Link href="/dashboard">
-                <Button size="lg" className="sketch-button-dark-primary text-base px-6 py-3 h-auto">
-                  Go to Dashboard
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <button
+                  className="relative w-48 h-14 border-[3px] border-white/80 outline-none bg-white/10 backdrop-blur-sm text-white transition-all duration-1000 rounded-[0.3em] text-base font-bold cursor-pointer hover:shadow-[inset_0px_0px_25px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:border-white group"
+                  style={{
+                    borderStyle: 'ridge'
+                  }}
+                >
+                  <span className="relative z-10 tracking-wider flex items-center justify-center gap-2">
+                    Go to Dashboard
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[0.3em]"></div>
+                </button>
               </Link>
             ) : (
               <>
