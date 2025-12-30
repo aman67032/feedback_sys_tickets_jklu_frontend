@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import ColorBends from '@/components/ui/dashboardbg';
 import { complaintAPI, userAPI } from '@/lib/api';
 import { getUser, hasRole } from '@/lib/auth';
 import { Complaint, ComplaintStats, Domain, User } from '@/lib/types';
@@ -152,11 +153,17 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div
-        className="min-h-screen flex items-center justify-center sketch-bg"
-        style={{ background: 'linear-gradient(to bottom right, #FFEFD5, #E0F7E9)' }}
-      >
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderColor: '#F9A822' }}></div>
+      <div className="min-h-screen flex items-center justify-center bg-black relative">
+        <div className="absolute inset-0 z-0">
+          <ColorBends 
+            colors={['#F97316', '#FB923C', '#FDBA74']}
+            speed={0.3}
+            scale={1.2}
+            frequency={1.5}
+            transparent={true}
+          />
+        </div>
+        <div className="relative z-10 animate-spin rounded-full h-16 w-16 border-4 border-white/30 border-t-white"></div>
       </div>
     );
   }
@@ -168,132 +175,148 @@ export default function Dashboard() {
     return complaint.status === statusFilter;
   });
 
-
   
   return (
-    <div
-      className="min-h-screen sketch-bg"
-      style={{ background: 'linear-gradient(to bottom right, #FFEFD5, #E0F7E9)' }}
-    >
-      {/* Enhanced Header */}
-      <header className="sketch-border-bottom py-0 flex-shrink-0 overflow-visible relative z-10" style={{ background: 'rgba(255, 251, 244, 0.95)', backdropFilter: 'blur(10px)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 py-4">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 z-0 pointer-events-auto">
+        <ColorBends 
+          colors={['#F97316', '#FB923C', '#FDBA74', '#F97316']}
+          speed={0.3}
+          scale={1.2}
+          frequency={1.5}
+          warpStrength={1.2}
+          mouseInfluence={1}
+          parallax={0.5}
+          transparent={true}
+        />
+      </div>
+      
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/30 z-[1] pointer-events-none"></div>
+      {/* Header */}
+      <header className="py-6 flex-shrink-0 overflow-visible relative z-10 border-b border-white/20 backdrop-blur-sm pointer-events-none">
+        <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+            <div className="flex items-center gap-4 pointer-events-auto">
+              <div className="flex items-center gap-3">
                 <Image
-                  src="/black_jklu_logo.png"
+                  src="/white_jklu_logo.png"
                   alt="JKLU Logo"
-                  width={60}
-                  height={60}
-                  className="sketch-logo"
+                  width={80}
+                  height={80}
+                  className="sketch-logo-dark"
                   style={{ objectFit: 'contain' }}
                 />
                 <Image
                   src="/Feedback_sys_logo.png"
                   alt="Feedback System Logo"
-                  width={110}
-                  height={110}
-                  className="sketch-logo w-16 h-16 sm:w-28 sm:h-28"
-                  style={{ objectFit: 'contain' }}
+                  width={140}
+                  height={140}
+                  className="sketch-logo-dark"
+                  style={{ objectFit: 'contain', filter: 'brightness(1.1)' }}
                 />
               </div>
               <div className="flex flex-col leading-tight">
-                <h1 className="text-lg sm:text-xl font-bold sketch-text" style={{ color: '#1f2937' }}>JKLU Feedback Dashboard</h1>
-                <span className="text-xs sm:text-sm sketch-text" style={{ color: '#73865f' }}>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1">JKLU Feedback Dashboard</h1>
+                <span className="text-base sm:text-lg text-white/80 mb-2">
                   Welcome, {user.name}
                 </span>
-                <span className="mt-1 inline-flex items-center gap-2 text-[11px] sm:text-xs font-medium">
-                  <span className="px-2 py-0.5 rounded-full bg-white/70 border border-[#D8CFBC] uppercase tracking-wide">
+                <span className="inline-flex items-center gap-2 text-sm font-medium">
+                  <span className="px-3 py-1 rounded-full bg-white/10 border border-white/30 text-white uppercase tracking-wide backdrop-blur-sm">
                     {user.role === 'student' && 'Student'}
                     {user.role === 'sub_admin' && 'Sub Admin'}
                     {user.role === 'super_admin' && 'Super Admin'}
                   </span>
                   {user.role === 'sub_admin' && user.domainName && (
-                    <span className="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700">
+                    <span className="px-3 py-1 rounded-full bg-white/10 border border-white/30 text-white backdrop-blur-sm">
                       Domain: {user.domainName}
                     </span>
                   )}
                 </span>
               </div>
             </div>
-            <nav className="flex items-center flex-wrap justify-center sm:justify-end gap-2">
+            <nav className="flex items-center flex-wrap justify-center sm:justify-end gap-3 pointer-events-auto">
               <Link href="/">
-                <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto w-full sm:w-auto">
+                <button className="px-6 py-3 border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-base font-semibold">
                   Home
-                </Button>
+                </button>
               </Link>
               {user.role === 'super_admin' && (
                 <Link href="/admin">
-                  <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto w-full sm:w-auto">
+                  <button className="px-6 py-3 border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-base font-semibold">
                     Admin
-                  </Button>
+                  </button>
                 </Link>
               )}
-              <Button variant="outline" className="sketch-button text-xs sm:text-sm px-4 py-2 h-auto w-full sm:w-auto" onClick={handleLogout}>
-                <LogOut className="h-4 w-4 mr-2" />
+              <button 
+                className="px-6 py-3 border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-base font-semibold flex items-center gap-2"
+                onClick={handleLogout}
+              >
+                <LogOut className="h-5 w-5" />
                 Logout
-              </Button>
+              </button>
             </nav>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+      <main className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16 py-12 relative z-10 pointer-events-none">
+        <div className="pointer-events-auto">
         {/* Stats Cards - Enhanced Design */}
         {stats && (
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
+          <div className="grid md:grid-cols-4 gap-8 mb-12">
+            <Card className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
+              <CardContent className="p-8">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium sketch-text mb-1" style={{ color: '#565449' }}>Total Complaints</p>
-                    <p className="text-3xl font-bold sketch-text" style={{ color: '#1f2937' }}>{stats.total}</p>
+                    <p className="text-lg font-semibold text-white/80 mb-2">Total Complaints</p>
+                    <p className="text-5xl font-bold text-white">{stats.total}</p>
                   </div>
-                  <div className="p-3 rounded-full" style={{ background: 'rgba(86, 84, 73, 0.1)' }}>
-                    <MessageSquare className="h-6 w-6" style={{ color: '#565449' }} />
+                  <div className="p-4 rounded-full bg-white/10">
+                    <MessageSquare className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
+            <Card className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
+              <CardContent className="p-8">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium sketch-text mb-1" style={{ color: '#C96A12' }}>Pending</p>
-                    <p className="text-3xl font-bold sketch-text" style={{ color: '#1f2937' }}>{stats.pending}</p>
+                    <p className="text-lg font-semibold text-white/80 mb-2">Pending</p>
+                    <p className="text-5xl font-bold text-white">{stats.pending}</p>
                   </div>
-                  <div className="p-3 rounded-full" style={{ background: 'rgba(249, 168, 34, 0.15)' }}>
-                    <Clock className="h-6 w-6" style={{ color: '#F9A822' }} />
+                  <div className="p-4 rounded-full bg-orange-500/20">
+                    <Clock className="h-8 w-8 text-orange-400" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
+            <Card className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
+              <CardContent className="p-8">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium sketch-text mb-1" style={{ color: '#4B9BEC' }}>In Progress</p>
-                    <p className="text-3xl font-bold sketch-text" style={{ color: '#1f2937' }}>{stats.in_progress}</p>
+                    <p className="text-lg font-semibold text-white/80 mb-2">In Progress</p>
+                    <p className="text-5xl font-bold text-white">{stats.in_progress}</p>
                   </div>
-                  <div className="p-3 rounded-full" style={{ background: 'rgba(75, 195, 236, 0.15)' }}>
-                    <TrendingUp className="h-6 w-6" style={{ color: '#4B9BEC' }} />
+                  <div className="p-4 rounded-full bg-blue-500/20">
+                    <TrendingUp className="h-8 w-8 text-blue-400" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
+            <Card className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
+              <CardContent className="p-8">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium sketch-text mb-1" style={{ color: '#73865f' }}>Resolved</p>
-                    <p className="text-3xl font-bold sketch-text" style={{ color: '#1f2937' }}>{stats.resolved}</p>
+                    <p className="text-lg font-semibold text-white/80 mb-2">Resolved</p>
+                    <p className="text-5xl font-bold text-white">{stats.resolved}</p>
                   </div>
-                  <div className="p-3 rounded-full" style={{ background: 'rgba(43, 184, 116, 0.15)' }}>
-                    <CheckCircle className="h-6 w-6" style={{ color: '#2BBAA5' }} />
+                  <div className="p-4 rounded-full bg-green-500/20">
+                    <CheckCircle className="h-8 w-8 text-green-400" />
                   </div>
                 </div>
               </CardContent>
@@ -303,47 +326,44 @@ export default function Dashboard() {
 
         {/* New Complaint Button - Only for Students */}
         {user.role === 'student' && (
-          <div className="mb-6 flex justify-between items-center">
-            <h2 className="text-2xl font-bold sketch-text" style={{ color: '#1f2937' }}>My Complaints</h2>
-            <Button 
+          <div className="mb-10 flex justify-between items-center">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white">My Complaints</h2>
+            <button 
               onClick={() => setShowNewComplaint(true)}
-              className="sketch-button-primary"
-              size="lg"
+              className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-lg font-bold flex items-center gap-2 shadow-lg"
             >
-              <Plus className="h-5 w-5 mr-2" />
+              <Plus className="h-6 w-6" />
               New Complaint
-            </Button>
+            </button>
           </div>
         )}
 
         {/* New Complaint Form Modal */}
         {showNewComplaint && (
-          <Card className="mb-8 sketch-card bg-white/95 backdrop-blur-sm border-2">
-            <CardHeader className="flex flex-row items-center justify-between">
+          <Card className="mb-10 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-xl">
+            <CardHeader className="flex flex-row items-center justify-between p-8">
               <div>
-                <CardTitle className="sketch-text text-xl" style={{ color: '#1f2937' }}>Submit New Complaint</CardTitle>
-                <CardDescription className="sketch-text">
+                <CardTitle className="text-2xl sm:text-3xl font-bold text-white mb-2">Submit New Complaint</CardTitle>
+                <CardDescription className="text-lg text-white/80">
                   Fill in the details to submit a new complaint
                 </CardDescription>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
+              <button
                 onClick={() => setShowNewComplaint(false)}
-                className="h-8 w-8 p-0"
+                className="h-10 w-10 p-0 text-white hover:bg-white/10 rounded-lg transition-colors"
               >
-                <X className="h-4 w-4" />
-              </Button>
+                <X className="h-6 w-6" />
+              </button>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit(onSubmitComplaint)} className="space-y-5">
-                <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-md">
+            <CardContent className="p-8">
+              <form onSubmit={handleSubmit(onSubmitComplaint)} className="space-y-6">
+                <div className="bg-orange-500/20 border-l-4 border-orange-400 p-6 rounded-lg">
                   <div className="flex">
                     <div className="flex-shrink-0">
-                      <AlertCircle className="h-5 w-5 text-amber-400" />
+                      <AlertCircle className="h-6 w-6 text-orange-400" />
                     </div>
-                    <div className="ml-3">
-                      <p className="text-sm text-amber-800 sketch-text">
+                    <div className="ml-4">
+                      <p className="text-base text-white">
                         <strong>Important Notice:</strong> Please ensure not to write any inappropriate words. 
                         You are anonymous to the department you are sending this complaint to.
                       </p>
@@ -351,10 +371,10 @@ export default function Dashboard() {
                   </div>
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
-                      Title <span className="text-red-500">*</span>
+                    <label className="block text-lg font-semibold text-white mb-3">
+                      Title <span className="text-red-400">*</span>
                     </label>
                     <input
                       {...register('title', { 
@@ -365,64 +385,55 @@ export default function Dashboard() {
                         }
                       })}
                       type="text"
-                      className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
-                      style={{ 
-                        borderColor: '#D8CFBC'
-                      }}
+                      className="w-full px-6 py-4 border-2 border-white/30 bg-white/10 backdrop-blur-sm rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-lg"
                       placeholder="Enter complaint title"
                     />
                     {errors.title && (
-                      <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
+                      <p className="mt-2 text-base text-red-400">{errors.title.message}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
+                    <label className="block text-lg font-semibold text-white mb-3">
                       Priority
                     </label>
                     <select
                       {...register('priority')}
-                      className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
-                      style={{ 
-                        borderColor: '#D8CFBC'
-                      }}
+                      className="w-full px-6 py-4 border-2 border-white/30 bg-white/10 backdrop-blur-sm rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-lg"
                     >
-                      <option value="low">Low</option>
-                      <option value="medium">Medium</option>
-                      <option value="high">High</option>
+                      <option value="low" className="bg-gray-800">Low</option>
+                      <option value="medium" className="bg-gray-800">Medium</option>
+                      <option value="high" className="bg-gray-800">High</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
-                    Domain <span className="text-red-500">*</span>
+                  <label className="block text-lg font-semibold text-white mb-3">
+                    Domain <span className="text-red-400">*</span>
                   </label>
                   <select
                     {...register('domainId', { 
                       required: 'Domain is required',
                       valueAsNumber: true
                     })}
-                    className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
-                    style={{ 
-                      borderColor: '#D8CFBC'
-                    }}
+                    className="w-full px-6 py-4 border-2 border-white/30 bg-white/10 backdrop-blur-sm rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-lg"
                   >
-                    <option value="">Select a domain</option>
+                    <option value="" className="bg-gray-800">Select a domain</option>
                     {domains.map((domain) => (
-                      <option key={domain.id} value={domain.id}>
+                      <option key={domain.id} value={domain.id} className="bg-gray-800">
                         {domain.name}
                       </option>
                     ))}
                   </select>
                   {errors.domainId && (
-                    <p className="mt-1 text-sm text-red-600">{errors.domainId.message}</p>
+                    <p className="mt-2 text-base text-red-400">{errors.domainId.message}</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
-                    Description <span className="text-red-500">*</span>
+                  <label className="block text-lg font-semibold text-white mb-3">
+                    Description <span className="text-red-400">*</span>
                   </label>
                   <textarea
                     {...register('description', { 
@@ -432,33 +443,33 @@ export default function Dashboard() {
                         message: 'Description must be at least 10 characters'
                       }
                     })}
-                    rows={5}
-                    className="w-full px-4 py-2 border-2 rounded-md sketch-border placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2"
-                    style={{ 
-                      borderColor: '#D8CFBC'
-                    }}
+                    rows={6}
+                    className="w-full px-6 py-4 border-2 border-white/30 bg-white/10 backdrop-blur-sm rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-lg"
                     placeholder="Describe your complaint in detail..."
                   />
                   {errors.description && (
-                    <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
+                    <p className="mt-2 text-base text-red-400">{errors.description.message}</p>
                   )}
                 </div>
 
-                <div className="flex space-x-4 pt-2">
-                  <Button type="submit" loading={submitting} disabled={submitting} className="sketch-button-primary">
+                <div className="flex space-x-4 pt-4">
+                  <button 
+                    type="submit" 
+                    disabled={submitting}
+                    className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-lg font-bold disabled:opacity-50"
+                  >
                     {submitting ? 'Submitting...' : 'Submit Complaint'}
-                  </Button>
-                  <Button 
+                  </button>
+                  <button 
                     type="button" 
-                    variant="outline" 
                     onClick={() => {
                       setShowNewComplaint(false);
                       reset();
                     }}
-                    className="sketch-button"
+                    className="px-8 py-4 border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-lg font-semibold"
                   >
                     Cancel
-                  </Button>
+                  </button>
                 </div>
               </form>
             </CardContent>
@@ -466,11 +477,11 @@ export default function Dashboard() {
         )}
 
         {/* Complaints Section with Tabs */}
-        <div className="mb-8">
+        <div className="mb-10">
           {/* Quick Filters (role-aware) */}
-          <div className="mb-4 flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1 text-xs sm:text-sm text-gray-700">
-              <Filter className="h-3 w-3 sm:h-4 sm:w-4" />
+          <div className="mb-6 flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center gap-2 text-base sm:text-lg text-white font-semibold">
+              <Filter className="h-5 w-5 sm:h-6 sm:w-6" />
               Quick filters:
             </span>
             {['all', 'pending', 'in_progress', 'rejected'].map((value) => {
@@ -486,10 +497,10 @@ export default function Dashboard() {
                   key={value}
                   type="button"
                   onClick={() => setStatusFilter(value as typeof statusFilter)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                  className={`px-5 py-2 rounded-full text-base font-semibold border-2 transition-colors ${
                     isActive
-                      ? 'bg-orange-100 text-orange-800 border-orange-300'
-                      : 'bg-white/80 text-gray-700 border-[#D8CFBC] hover:bg-gray-50'
+                      ? 'bg-orange-500/30 text-white border-orange-400'
+                      : 'bg-white/10 text-white/80 border-white/30 hover:bg-white/20 hover:border-white/50'
                   }`}
                 >
                   {label}
@@ -499,22 +510,22 @@ export default function Dashboard() {
           </div>
 
           {/* Tab Navigation */}
-          <div className="flex gap-2 mb-6 border-b-2 overflow-x-auto pb-1" style={{ borderColor: '#D8CFBC' }}>
+          <div className="flex gap-4 mb-8 border-b-2 border-white/20 overflow-x-auto pb-2">
             <button
               onClick={() => setActiveTab('active')}
-              className={`px-4 sm:px-6 py-2 sm:py-3 font-semibold sketch-text transition-colors relative whitespace-nowrap ${
+              className={`px-6 py-3 text-lg sm:text-xl font-bold transition-colors relative whitespace-nowrap ${
                 activeTab === 'active'
-                  ? 'text-orange-600'
-                  : 'text-gray-600 hover:text-gray-800'
+                  ? 'text-orange-400'
+                  : 'text-white/60 hover:text-white/80'
               }`}
             >
               Active Complaints
               {activeTab === 'active' && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-600"></span>
+                <span className="absolute bottom-0 left-0 right-0 h-1 bg-orange-400 rounded-t"></span>
               )}
               {activeComplaints.length > 0 && (
-                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
-                  activeTab === 'active' ? 'bg-orange-100 text-orange-800' : 'bg-gray-100 text-gray-600'
+                <span className={`ml-3 px-3 py-1 rounded-full text-base font-semibold ${
+                  activeTab === 'active' ? 'bg-orange-500/30 text-white' : 'bg-white/10 text-white/60'
                 }`}>
                   {activeComplaints.length}
                 </span>
@@ -523,18 +534,18 @@ export default function Dashboard() {
             {resolvedComplaints.length > 0 && (
               <button
                 onClick={() => setActiveTab('resolved')}
-                className={`px-4 sm:px-6 py-2 sm:py-3 font-semibold sketch-text transition-colors relative whitespace-nowrap ${
+                className={`px-6 py-3 text-lg sm:text-xl font-bold transition-colors relative whitespace-nowrap ${
                   activeTab === 'resolved'
-                    ? 'text-green-600'
-                    : 'text-gray-600 hover:text-gray-800'
+                    ? 'text-green-400'
+                    : 'text-white/60 hover:text-white/80'
                 }`}
               >
                 Resolved Complaints
                 {activeTab === 'resolved' && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-600"></span>
+                  <span className="absolute bottom-0 left-0 right-0 h-1 bg-green-400 rounded-t"></span>
                 )}
-                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
-                  activeTab === 'resolved' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'
+                <span className={`ml-3 px-3 py-1 rounded-full text-base font-semibold ${
+                  activeTab === 'resolved' ? 'bg-green-500/30 text-white' : 'bg-white/10 text-white/60'
                 }`}>
                   {resolvedComplaints.length}
                 </span>
@@ -546,44 +557,44 @@ export default function Dashboard() {
           {activeTab === 'active' && (
             <div>
               {filteredActiveComplaints.length === 0 ? (
-                <Card className="sketch-card bg-white/90 backdrop-blur-sm">
-                  <CardContent className="text-center py-12">
-                    <FileText className="h-12 w-12 mx-auto mb-4" style={{ color: '#D8CFBC' }} />
-                    <p className="text-gray-600 sketch-text text-lg">
+                <Card className="bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-xl">
+                  <CardContent className="text-center py-16">
+                    <FileText className="h-16 w-16 mx-auto mb-6 text-white/60" />
+                    <p className="text-white text-xl sm:text-2xl font-semibold mb-6">
                       {statusFilter === 'all'
                         ? 'No active complaints found.'
                         : 'No complaints match the selected filter.'}
                     </p>
                     {user.role === 'student' && (
-                      <Button 
+                      <button 
                         onClick={() => setShowNewComplaint(true)}
-                        className="mt-4 sketch-button-primary"
+                        className="mt-6 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-lg font-bold flex items-center gap-2 mx-auto"
                       >
-                        <Plus className="h-4 w-4 mr-2" />
+                        <Plus className="h-6 w-6" />
                         Create Your First Complaint
-                      </Button>
+                      </button>
                     )}
                   </CardContent>
                 </Card>
               ) : (
-                <div className="grid gap-6">
+                <div className="grid gap-8">
                   {filteredActiveComplaints.map((complaint) => (
-                    <Card key={complaint.id} className="sketch-card bg-white/90 backdrop-blur-sm border-2 hover:shadow-lg transition-shadow">
-                      <CardHeader>
+                    <Card key={complaint.id} className="bg-white/10 backdrop-blur-md border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
+                      <CardHeader className="p-8">
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
-                            <CardTitle className="text-xl flex items-center gap-2 sketch-text mb-2" style={{ color: '#1f2937' }}>
+                            <CardTitle className="text-2xl sm:text-3xl flex items-center gap-3 text-white mb-3 font-bold">
                               {complaint.title}
                               {user?.role === 'student' && complaint.adminSeen && (
-                                <span className="inline-flex items-center gap-1 text-xs text-blue-600">
-                                  <CheckCheck className="h-4 w-4" />
+                                <span className="inline-flex items-center gap-2 text-base text-blue-400">
+                                  <CheckCheck className="h-5 w-5" />
                                   Seen by admin
                                 </span>
                               )}
                             </CardTitle>
-                            <CardDescription className="sketch-text flex items-center gap-2 flex-wrap">
-                              <span className="flex items-center gap-1">
-                                <MessageSquare className="h-4 w-4" />
+                            <CardDescription className="text-lg text-white/80 flex items-center gap-3 flex-wrap">
+                              <span className="flex items-center gap-2">
+                                <MessageSquare className="h-5 w-5" />
                                 {complaint.domainName}
                               </span>
                               <span>•</span>
@@ -591,94 +602,96 @@ export default function Dashboard() {
                               {user?.role === 'student' && complaint.adminSeen && (
                                 <>
                                   <span>•</span>
-                                  <span className="text-blue-600">Seen by admin</span>
+                                  <span className="text-blue-400">Seen by admin</span>
                                 </>
                               )}
                             </CardDescription>
                           </div>
-                          <div className="flex gap-2 flex-wrap">
-                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(complaint.status)}`}>
+                          <div className="flex gap-3 flex-wrap">
+                            <span className={`inline-flex items-center px-4 py-2 rounded-full text-base font-semibold border-2 ${
+                              complaint.status === 'pending' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-400' :
+                              complaint.status === 'in_progress' ? 'bg-blue-500/20 text-blue-300 border-blue-400' :
+                              complaint.status === 'resolved' ? 'bg-green-500/20 text-green-300 border-green-400' :
+                              'bg-red-500/20 text-red-300 border-red-400'
+                            }`}>
                               {complaint.status.replace('_', ' ')}
                             </span>
-                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getPriorityColor(complaint.priority)}`}>
+                            <span className={`inline-flex items-center px-4 py-2 rounded-full text-base font-semibold border-2 ${
+                              complaint.priority === 'low' ? 'bg-gray-500/20 text-gray-300 border-gray-400' :
+                              complaint.priority === 'medium' ? 'bg-orange-500/20 text-orange-300 border-orange-400' :
+                              'bg-red-500/20 text-red-300 border-red-400'
+                            }`}>
                               {complaint.priority}
                             </span>
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <div className="bg-gray-50 p-4 rounded-lg border" style={{ borderColor: '#D8CFBC' }}>
-                            <p className="text-gray-700 sketch-text">{complaint.description}</p>
+                      <CardContent className="p-8 pt-0">
+                        <div className="space-y-6">
+                          <div className="bg-white/5 p-6 rounded-lg border-2 border-white/10">
+                            <p className="text-white text-lg leading-relaxed">{complaint.description}</p>
                           </div>
                           
                           {user.role === 'super_admin' && complaint.studentName && (
-                            <div className="text-sm sketch-text p-3 bg-blue-50 rounded-lg" style={{ color: '#1f2937' }}>
+                            <div className="text-lg text-white p-4 bg-blue-500/20 rounded-lg border-2 border-blue-400/30">
                               <strong>Student:</strong> {complaint.studentName} ({complaint.studentEmail})
                             </div>
                           )}
                           
                           {(user.role === 'sub_admin' || user.role === 'super_admin') && (
-                            <div className="flex flex-wrap gap-2 pt-2">
+                            <div className="flex flex-wrap gap-3 pt-4">
                               {!complaint.adminSeen && (
-                                <Button 
-                                  size="sm" 
+                                <button 
                                   onClick={() => handleMarkSeen(complaint.id)}
-                                  className="sketch-button"
+                                  className="px-6 py-3 border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-base font-semibold flex items-center gap-2"
                                 >
-                                  <Eye className="h-4 w-4 mr-1" />
+                                  <Eye className="h-5 w-5" />
                                   Mark Seen
-                                </Button>
+                                </button>
                               )}
                               {complaint.status === 'pending' && (
-                                <Button 
-                                  size="sm" 
+                                <button 
                                   onClick={() => handleStatusUpdate(complaint.id, 'in_progress')}
-                                  className="sketch-button-primary"
+                                  className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-base font-bold flex items-center gap-2"
                                 >
-                                  <Clock className="h-4 w-4 mr-1" />
+                                  <Clock className="h-5 w-5" />
                                   Start Progress
-                                </Button>
+                                </button>
                               )}
                               {complaint.status === 'in_progress' && (
                                 <>
-                                  <Button 
-                                    size="sm" 
+                                  <button 
                                     onClick={() => {
                                       const resolution = prompt('Enter resolution details:');
                                       if (resolution) {
                                         handleStatusUpdate(complaint.id, 'resolved', resolution);
                                       }
                                     }}
-                                    className="sketch-button-primary"
+                                    className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 border-2 border-white/30 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 text-base font-bold flex items-center gap-2"
                                   >
-                                    <CheckCircle className="h-4 w-4 mr-1" />
+                                    <CheckCircle className="h-5 w-5" />
                                     Resolve
-                                  </Button>
-                                  <Button 
-                                    size="sm" 
-                                    variant="outline"
+                                  </button>
+                                  <button 
                                     onClick={() => handleStatusUpdate(complaint.id, 'rejected')}
-                                    className="sketch-button"
+                                    className="px-6 py-3 border-2 border-red-400/50 bg-red-500/20 backdrop-blur-sm text-red-300 rounded-lg hover:bg-red-500/30 hover:border-red-400 transition-all duration-300 text-base font-semibold flex items-center gap-2"
                                   >
-                                    <AlertCircle className="h-4 w-4 mr-1" />
+                                    <AlertCircle className="h-5 w-5" />
                                     Reject
-                                  </Button>
+                                  </button>
                                 </>
                               )}
                               {user.role === 'super_admin' && (
-                                <Button 
-                                  size="sm" 
-                                  variant="outline"
+                                <button 
                                   onClick={() => {
                                     setSelectedComplaint(complaint);
                                     setShowTransferModal(true);
                                   }}
-                                  className="sketch-button"
+                                  className="px-6 py-3 border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-base font-semibold flex items-center gap-2"
                                 >
-                                  <ArrowRight className="h-4 w-4 mr-1" />
+                                  <ArrowRight className="h-5 w-5" />
                                   Transfer
-                                </Button>
+                                </button>
                               )}
                             </div>
                           )}
@@ -693,21 +706,21 @@ export default function Dashboard() {
 
           {/* Resolved Complaints */}
           {activeTab === 'resolved' && resolvedComplaints.length > 0 && (
-            <div className="grid gap-6">
+            <div className="grid gap-8">
               {resolvedComplaints.map((complaint) => (
-                <Card key={complaint.id} className="sketch-card bg-white/90 backdrop-blur-sm border-2 border-green-200 hover:shadow-lg transition-shadow">
-                  <CardHeader>
+                <Card key={complaint.id} className="bg-white/10 backdrop-blur-md border-2 border-green-400/30 hover:bg-white/15 hover:border-green-400/50 transition-all duration-300 rounded-xl">
+                  <CardHeader className="p-8">
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <CardTitle className="text-xl flex items-center gap-2 sketch-text mb-2" style={{ color: '#1f2937' }}>
+                        <CardTitle className="text-2xl sm:text-3xl flex items-center gap-3 text-white mb-3 font-bold">
                           {complaint.title}
                           {user?.role === 'student' && complaint.adminSeen && (
-                            <CheckCheck className="h-5 w-5 text-blue-600" />
+                            <CheckCheck className="h-6 w-6 text-blue-400" />
                           )}
                         </CardTitle>
-                        <CardDescription className="sketch-text flex items-center gap-2 flex-wrap">
-                          <span className="flex items-center gap-1">
-                            <MessageSquare className="h-4 w-4" />
+                        <CardDescription className="text-lg text-white/80 flex items-center gap-3 flex-wrap">
+                          <span className="flex items-center gap-2">
+                            <MessageSquare className="h-5 w-5" />
                             {complaint.domainName}
                           </span>
                           <span>•</span>
@@ -715,34 +728,38 @@ export default function Dashboard() {
                           {complaint.resolvedAt && (
                             <>
                               <span>•</span>
-                              <span className="text-green-600">Resolved {safeFormatDate(complaint.resolvedAt)}</span>
+                              <span className="text-green-400">Resolved {safeFormatDate(complaint.resolvedAt)}</span>
                             </>
                           )}
                         </CardDescription>
                       </div>
-                      <div className="flex gap-2">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                      <div className="flex gap-3">
+                        <span className="inline-flex items-center px-4 py-2 rounded-full text-base font-semibold bg-green-500/20 text-green-300 border-2 border-green-400">
                           Resolved
                         </span>
-                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getPriorityColor(complaint.priority)}`}>
+                        <span className={`inline-flex items-center px-4 py-2 rounded-full text-base font-semibold border-2 ${
+                          complaint.priority === 'low' ? 'bg-gray-500/20 text-gray-300 border-gray-400' :
+                          complaint.priority === 'medium' ? 'bg-orange-500/20 text-orange-300 border-orange-400' :
+                          'bg-red-500/20 text-red-300 border-red-400'
+                        }`}>
                           {complaint.priority}
                         </span>
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="bg-gray-50 p-4 rounded-lg border" style={{ borderColor: '#D8CFBC' }}>
-                        <h5 className="font-semibold sketch-text mb-2" style={{ color: '#1f2937' }}>Problem:</h5>
-                        <p className="text-gray-700 sketch-text">{complaint.description}</p>
+                  <CardContent className="p-8 pt-0">
+                    <div className="space-y-6">
+                      <div className="bg-white/5 p-6 rounded-lg border-2 border-white/10">
+                        <h5 className="font-bold text-xl text-white mb-3">Problem:</h5>
+                        <p className="text-white text-lg leading-relaxed">{complaint.description}</p>
                       </div>
                       {complaint.resolutionDetails && (
-                        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                          <h5 className="font-semibold sketch-text mb-2 flex items-center gap-2" style={{ color: '#2BBAA5' }}>
-                            <CheckCircle className="h-5 w-5" />
+                        <div className="bg-green-500/20 p-6 rounded-lg border-2 border-green-400/30">
+                          <h5 className="font-bold text-xl text-green-300 mb-3 flex items-center gap-2">
+                            <CheckCircle className="h-6 w-6" />
                             Solution:
                           </h5>
-                          <p className="text-gray-700 sketch-text">{complaint.resolutionDetails}</p>
+                          <p className="text-white text-lg leading-relaxed">{complaint.resolutionDetails}</p>
                         </div>
                       )}
                     </div>
@@ -752,87 +769,84 @@ export default function Dashboard() {
             </div>
           )}
         </div>
+        </div>
       </main>
 
       {/* Transfer Modal */}
       {showTransferModal && selectedComplaint && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <Card className="w-full max-w-md sketch-card bg-white/95 backdrop-blur-sm border-2">
-            <CardHeader className="flex flex-row items-center justify-between">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <Card className="w-full max-w-2xl bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-xl">
+            <CardHeader className="flex flex-row items-center justify-between p-8">
               <div>
-                <CardTitle className="sketch-text" style={{ color: '#1f2937' }}>Transfer Complaint</CardTitle>
-                <CardDescription className="sketch-text">
+                <CardTitle className="text-2xl sm:text-3xl font-bold text-white mb-2">Transfer Complaint</CardTitle>
+                <CardDescription className="text-lg text-white/80">
                   Transfer "{selectedComplaint.title}" to another domain
                 </CardDescription>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
+              <button
                 onClick={() => {
                   setShowTransferModal(false);
                   setSelectedComplaint(null);
                 }}
-                className="h-8 w-8 p-0"
+                className="h-10 w-10 p-0 text-white hover:bg-white/10 rounded-lg transition-colors"
               >
-                <X className="h-4 w-4" />
-              </Button>
+                <X className="h-6 w-6" />
+              </button>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-8">
               <form onSubmit={(e) => {
                 e.preventDefault();
                 const formData = new FormData(e.currentTarget);
                 const toDomainId = parseInt(formData.get('toDomainId') as string);
                 const reason = formData.get('reason') as string;
                 handleTransfer(selectedComplaint.id, toDomainId, reason);
-              }} className="space-y-4">
+              }} className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
-                    Target Domain <span className="text-red-500">*</span>
+                  <label className="block text-lg font-semibold text-white mb-3">
+                    Target Domain <span className="text-red-400">*</span>
                   </label>
                   <select
                     name="toDomainId"
-                    className="w-full px-4 py-2 border-2 rounded-md sketch-border focus:outline-none focus:ring-2 focus:ring-offset-2"
-                    style={{ 
-                      borderColor: '#D8CFBC'
-                    }}
+                    className="w-full px-6 py-4 border-2 border-white/30 bg-white/10 backdrop-blur-sm rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-lg"
                     required
                   >
-                    <option value="">Select a domain</option>
+                    <option value="" className="bg-gray-800">Select a domain</option>
                     {domains.filter(d => d.id !== selectedComplaint.domainId).map((domain) => (
-                      <option key={domain.id} value={domain.id}>
+                      <option key={domain.id} value={domain.id} className="bg-gray-800">
                         {domain.name}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium sketch-text mb-2" style={{ color: '#1f2937' }}>
-                    Transfer Reason <span className="text-red-500">*</span>
+                  <label className="block text-lg font-semibold text-white mb-3">
+                    Transfer Reason <span className="text-red-400">*</span>
                   </label>
                   <textarea
                     name="reason"
-                    rows={4}
-                    className="w-full px-4 py-2 border-2 rounded-md sketch-border placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2"
-                    style={{ 
-                      borderColor: '#D8CFBC'
-                    }}
+                    rows={5}
+                    className="w-full px-6 py-4 border-2 border-white/30 bg-white/10 backdrop-blur-sm rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-lg"
                     placeholder="Reason for transfer..."
                     required
                   />
                 </div>
-                <div className="flex space-x-4 pt-2">
-                  <Button type="submit" className="sketch-button-primary">Transfer</Button>
-                  <Button 
+                <div className="flex space-x-4 pt-4">
+                  <button 
+                    type="submit" 
+                    className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-lg font-bold"
+                  >
+                    Transfer
+                  </button>
+                  <button 
                     type="button" 
-                    variant="outline" 
                     onClick={() => {
                       setShowTransferModal(false);
                       setSelectedComplaint(null);
                     }}
-                    className="sketch-button"
+                    className="px-8 py-4 border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-lg font-semibold"
                   >
                     Cancel
-                  </Button>
+                  </button>
                 </div>
               </form>
             </CardContent>
