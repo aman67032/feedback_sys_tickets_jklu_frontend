@@ -48,10 +48,63 @@ export default function Home() {
         </div>
       )}
       
-      {/* Mobile-optimized gradient background */}
+      {/* Mobile-optimized beautiful light effect background */}
       {isMobile && (
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#FF9F00]/20 via-black to-[#0000FC]/20"></div>
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          {/* Background Image (escaped space in filename) */}
+          <div 
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('/mobile%20landingbg.jpg')",
+            }}
+          ></div>
+          
+          {/* Overlay to blend with image */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#FF9F00]/40 via-black/60 to-[#0000FC]/40"></div>
+          
+          {/* Animated light orbs */}
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#FF9F00]/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+          <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-[#0000FC]/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
+          <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-[#FF9F00]/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }}></div>
+          
+          {/* Animated light rays */}
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-1/4 left-0 w-1/2 h-1 bg-gradient-to-r from-transparent via-[#FF9F00]/40 to-transparent transform rotate-12 animate-light-ray" style={{ animationDuration: '8s' }}></div>
+            <div className="absolute top-1/2 right-0 w-1/2 h-1 bg-gradient-to-l from-transparent via-[#0000FC]/40 to-transparent transform -rotate-12 animate-light-ray" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
+            <div className="absolute bottom-1/3 left-1/4 w-1/3 h-1 bg-gradient-to-r from-transparent via-[#FF9F00]/30 to-transparent transform rotate-45 animate-light-ray" style={{ animationDuration: '12s', animationDelay: '4s' }}></div>
+          </div>
+          
+          {/* Floating light particles */}
+          <div className="absolute inset-0">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-white/30 rounded-full blur-sm animate-float"
+                style={{
+                  left: `${20 + i * 15}%`,
+                  top: `${30 + (i % 3) * 25}%`,
+                  animationDuration: `${3 + i * 0.5}s`,
+                  animationDelay: `${i * 0.3}s`,
+                }}
+              ></div>
+            ))}
+          </div>
+          
+          {/* Glowing mesh effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#FF9F00]/10 via-transparent to-[#0000FC]/10 animate-mesh-shift" style={{ animationDuration: '15s' }}></div>
+        </div>
+      )}
+      
+      {/* Desktop background with image overlay */}
+      {!isMobile && (
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden hidden md:block">
+          {/* Background Image for desktop too */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+            style={{
+              backgroundImage: 'url(/mobile landingbg.jpg)',
+            }}
+          ></div>
         </div>
       )}
       

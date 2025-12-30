@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import ColorBends from '@/components/ui/dashboardbg';
+import Loader from '@/components/ui/Loader';
 import { complaintAPI, userAPI } from '@/lib/api';
 import { getUser, hasRole } from '@/lib/auth';
 import { Complaint, ComplaintStats, Domain, User } from '@/lib/types';
@@ -175,7 +176,9 @@ export default function Dashboard() {
             transparent={false}
           />
         </div>
-        <div className="relative z-10 animate-spin rounded-full h-16 w-16 border-4 border-white/30 border-t-white"></div>
+        <div className="relative z-10">
+          <Loader />
+        </div>
       </div>
     );
   }
