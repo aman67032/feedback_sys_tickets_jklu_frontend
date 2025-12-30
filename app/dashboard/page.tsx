@@ -168,11 +168,11 @@ export default function Dashboard() {
       <div className="min-h-screen flex items-center justify-center bg-black relative">
         <div className="absolute inset-0 z-0">
           <ColorBends 
-            colors={['#F97316', '#FB923C', '#FDBA74']}
+            colors={['#F90316', '#FB923C', '#F00A74']}
             speed={0.3}
             scale={1.2}
             frequency={1.5}
-            transparent={true}
+            transparent={false}
           />
         </div>
         <div className="relative z-10 animate-spin rounded-full h-16 w-16 border-4 border-white/30 border-t-white"></div>
@@ -201,7 +201,7 @@ export default function Dashboard() {
             warpStrength={1.2}
             mouseInfluence={1}
             parallax={0.5}
-            transparent={true}
+            transparent={false}
           />
         </div>
       )}
@@ -209,7 +209,7 @@ export default function Dashboard() {
       {/* Mobile-optimized gradient background */}
       {isMobile && (
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/20 via-black to-[#FDBA74]/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/30 via-black to-[#FDBA74]/30"></div>
         </div>
       )}
       
