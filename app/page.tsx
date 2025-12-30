@@ -48,31 +48,16 @@ export default function Home() {
         </div>
       )}
       
-      {/* Mobile-optimized beautiful light effect background */}
+      {/* Mobile-optimized static background - no animation for better performance */}
       {isMobile && (
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden w-screen h-screen" style={{ top: 0, left: 0, right: 0, bottom: 0 }}>
-          
-          
-          {/* FloatingLines Background - Mobile optimized with lower settings */}
-          <div className="fixed inset-0 z-[0.5] pointer-events-auto w-screen h-screen">
-            <FloatingLines 
-              topColor="#FF9F00"
-              bottomColor="#0040FC"
-              intensity={0.9}
-              rotationSpeed={0.2}
-              glowAmount={0.01}
-              pillarWidth={4.1}
-              pillarHeight={0.4}
-              noiseIntensity={0.3}
-              pillarRotation={0}
-              interactive={false}
-              mixBlendMode="normal"
-            />
-          </div>
-          
-         
-          
-         
+          {/* Simple gradient background instead of heavy WebGL animation */}
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(180deg, rgba(0, 64, 252, 0.15) 0%, rgba(0, 0, 0, 0.8) 50%, rgba(255, 159, 0, 0.1) 100%)'
+            }}
+          />
         </div>
       )}
       
@@ -89,8 +74,8 @@ export default function Home() {
         </div>
       )}
       
-      {/* Dark overlay for better text readability */}
-      <div className={`absolute inset-0 z-[1] pointer-events-none ${isMobile ? 'bg-black/25' : 'bg-black/40'}`}></div>
+      {/* Dark overlay for better text readability - darker on mobile */}
+      <div className={`absolute inset-0 z-[1] pointer-events-none ${isMobile ? 'bg-black/60' : 'bg-black/40'}`}></div>
 
       {/* Main Content - Flex grow to fill remaining space */}
       <main className="flex-1 flex flex-col justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-6 sm:py-8 relative z-10 pointer-events-none">
@@ -162,7 +147,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Features Section */}
+        {/* Features Section - Hidden on mobile for better performance */}
+        {!isMobile && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 pointer-events-auto px-2 sm:px-0">
           <div className="sketch-card-dark p-4 sm:p-6 bg-white/5 backdrop-blur-md border border-white/20 rounded-lg text-center sm:text-left">
             <div className="sketch-icon-dark mb-3 flex justify-center sm:justify-start">
@@ -200,6 +186,7 @@ export default function Home() {
             </p>
           </div>
         </div>
+        )}
       </main>
 
       {/* Footer */}
