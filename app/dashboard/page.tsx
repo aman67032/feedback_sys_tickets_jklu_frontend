@@ -223,6 +223,11 @@ export default function Dashboard() {
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-2 sm:gap-4 pointer-events-auto w-full sm:w-auto justify-center sm:justify-start">
                 <div className="flex items-center gap-2 sm:gap-3">
+                  <Link
+                    href="https://jklu.edu.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                   <Image
                     src="/white_jklu_logo.png"
                     alt="JKLU Logo"
@@ -231,6 +236,12 @@ export default function Dashboard() {
                     className="sketch-logo-dark"
                     style={{ objectFit: 'contain' }}
                   />
+                  </Link>
+                  <Link
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                   <Image
                     src="/Feedback_sys_logo.png"
                     alt="Feedback System Logo"
@@ -239,6 +250,7 @@ export default function Dashboard() {
                     className="sketch-logo-dark"
                     style={{ objectFit: 'contain', filter: 'brightness(1.1)' }}
                   />
+                  </Link>
                 </div>
                 <div className="flex flex-col leading-tight">
                   <h1 className="text-base sm:text-xl md:text-2xl font-bold text-white mb-1">JKLU Feedback Dashboard</h1>

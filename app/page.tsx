@@ -113,14 +113,25 @@ export default function Home() {
         <div className="text-center mb-6 sm:mb-8 pointer-events-auto">
           {/* Logo */}
           <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6 w-full mx-auto">
-            <Image
-              src="/white_jklu_logo.png"
-              alt="JKLU Logo"
-              width={isMobile ? 100 : 170}
-              height={isMobile ? 100 : 170}
-              className="sketch-logo-dark"
-              style={{ objectFit: 'contain' }}
-            />
+          <Link
+          href="https://jklu.edu.in"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            src="/white_jklu_logo.png"
+            alt="JKLU Logo"
+            width={isMobile ? 100 : 170}
+            height={isMobile ? 100 : 170}
+            className="sketch-logo-dark cursor-pointer"
+            style={{ objectFit: "contain" }}
+          />
+        </Link>
+        <Link
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
             <Image
               src="/Feedback_sys_logo.png"
               alt="JKLU Feedback System Logo"
@@ -129,6 +140,7 @@ export default function Home() {
               className="sketch-logo-dark"
               style={{ objectFit: 'contain', filter: 'brightness(1.1)' }}
             />
+          </Link>
           </div>
           
           {/* Main Title */}
