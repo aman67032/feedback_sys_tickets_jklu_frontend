@@ -444,6 +444,200 @@ body {
     0 0 0 2px rgba(251, 191, 36, 0.2);
 }
 
+/* Mobile Unique Background */
+.mobile-bg-container {
+  background: #000000;
+  overflow: hidden;
+}
+
+.mobile-bg-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+
+.mobile-bg-layer-1 {
+  background: radial-gradient(circle at 20% 30%, rgba(255, 159, 0, 0.2) 0%, rgba(255, 159, 0, 0.1) 30%, transparent 60%);
+  animation: mobileFloat1 20s ease-in-out infinite;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.mobile-bg-layer-2 {
+  background: radial-gradient(circle at 80% 70%, rgba(0, 64, 252, 0.2) 0%, rgba(0, 64, 252, 0.1) 30%, transparent 60%);
+  animation: mobileFloat2 25s ease-in-out infinite;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.mobile-mesh-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 159, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 64, 252, 0.08) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: mobileMeshShift 40s linear infinite;
+  opacity: 0.6;
+}
+
+.mobile-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  will-change: transform;
+}
+
+.mobile-orb-1 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 159, 0, 0.4) 0%, rgba(255, 159, 0, 0.2) 50%, transparent 80%);
+  top: 10%;
+  left: 10%;
+  animation: mobileOrbFloat1 15s ease-in-out infinite;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.mobile-orb-2 {
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(0, 64, 252, 0.4) 0%, rgba(0, 64, 252, 0.2) 50%, transparent 80%);
+  bottom: 20%;
+  right: 15%;
+  animation: mobileOrbFloat2 18s ease-in-out infinite;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.mobile-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.5;
+  mask-image: radial-gradient(ellipse at center, black 50%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 50%, transparent 100%);
+}
+
+@keyframes mobileFloat1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  33% {
+    transform: translate(20px, -30px) scale(1.1);
+    opacity: 0.4;
+  }
+  66% {
+    transform: translate(-15px, 20px) scale(0.9);
+    opacity: 0.7;
+  }
+}
+
+@keyframes mobileFloat2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translate(-25px, 25px) scale(1.2);
+    opacity: 0.3;
+  }
+  66% {
+    transform: translate(30px, -20px) scale(0.8);
+    opacity: 0.6;
+  }
+}
+
+@keyframes mobileFloat3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(15px, -15px) scale(1.15);
+    opacity: 0.6;
+  }
+}
+
+@keyframes mobileMeshShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes mobileOrbFloat1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -40px) scale(1.2);
+  }
+  50% {
+    transform: translate(-20px, 30px) scale(0.8);
+  }
+  75% {
+    transform: translate(40px, 20px) scale(1.1);
+  }
+}
+
+@keyframes mobileOrbFloat2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-35px, 25px) scale(1.3);
+  }
+  66% {
+    transform: translate(25px, -35px) scale(0.7);
+  }
+}
+
+@keyframes mobileOrbFloat3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-30px, -25px) scale(1.1);
+  }
+  50% {
+    transform: translate(35px, 40px) scale(0.9);
+  }
+  75% {
+    transform: translate(-25px, 30px) scale(1.15);
+  }
+}
+
+/* Mobile Info Cards - No button-like styling */
+.info-card-mobile {
+  position: relative;
+  transform: none !important;
+  transition: none !important;
+  cursor: default !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: none !important;
+}
+
+.info-card-mobile:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.info-card-mobile:hover .sketch-icon-dark {
+  transform: none !important;
+  filter: none !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .sketch-title {
@@ -452,6 +646,21 @@ body {
   
   .sketch-text {
     font-size: 1.5rem;
+  }
+  
+  /* Disable heavy animations on mobile */
+  .sketch-card-dark {
+    transform: none !important;
+    transition: background-color 0.2s ease !important;
+  }
+  
+  .sketch-card-dark:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  
+  .sketch-icon-dark {
+    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.3)) !important;
   }
 }
 
@@ -509,6 +718,8 @@ body {
   object-fit: contain;
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
   transform: rotate(-1deg);
+  margin: 0 auto;
+  display: block;
 }
 
 .sketch-icon-dark {
