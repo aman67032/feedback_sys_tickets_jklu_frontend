@@ -46,7 +46,7 @@ export default function Dashboard() {
       const isMobileDevice = window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       setIsMobile(isMobileDevice);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -69,7 +69,7 @@ export default function Dashboard() {
         userAPI.getStats(),
         userAPI.getDomains()
       ]);
-      
+
       setComplaints(complaintsRes.data.complaints);
       setStats(statsRes.data.stats);
       setDomains(domainsRes.data.domains);
@@ -168,7 +168,7 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black relative">
         <div className="absolute inset-0 z-0">
-          <ColorBends 
+          <ColorBends
             colors={['#F90316', '#FB923C', '#F00A74']}
             speed={0.3}
             scale={1.2}
@@ -190,13 +190,13 @@ export default function Dashboard() {
     return complaint.status === statusFilter;
   });
 
-  
+
   return (
     <div className="min-h-screen bg-black relative overflow-hidden" style={{ WebkitOverflowScrolling: 'touch' }}>
       {/* Animated Background - Only on desktop */}
       {!isMobile && (
         <div className="absolute inset-0 z-0 pointer-events-auto hidden md:block">
-          <ColorBends 
+          <ColorBends
             colors={['#F97316', '#FB923C', '#FDBA74', '#F97316']}
             speed={0.3}
             scale={1.2}
@@ -208,14 +208,14 @@ export default function Dashboard() {
           />
         </div>
       )}
-      
+
       {/* Mobile-optimized gradient background */}
       {isMobile && (
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/30 via-black to-[#FDBA74]/30"></div>
         </div>
       )}
-      
+
       {/* Header */}
       <header className="py-4 sm:py-6 flex-shrink-0 overflow-visible relative z-10 border-b border-white/20 pointer-events-none">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
@@ -228,28 +228,28 @@ export default function Dashboard() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                  <Image
-                    src="/white_jklu_logo.png"
-                    alt="JKLU Logo"
-                    width={isMobile ? 50 : 80}
-                    height={isMobile ? 50 : 80}
-                    className="sketch-logo-dark"
-                    style={{ objectFit: 'contain' }}
-                  />
+                    <Image
+                      src="/white_jklu_logo.png"
+                      alt="JKLU Logo"
+                      width={isMobile ? 50 : 80}
+                      height={isMobile ? 50 : 80}
+                      className="sketch-logo-dark"
+                      style={{ objectFit: 'contain' }}
+                    />
                   </Link>
                   <Link
                     href="#"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                  <Image
-                    src="/Feedback_sys_logo.png"
-                    alt="Feedback System Logo"
-                    width={isMobile ? 90 : 140}
-                    height={isMobile ? 90 : 140}
-                    className="sketch-logo-dark"
-                    style={{ objectFit: 'contain', filter: 'brightness(1.1)' }}
-                  />
+                    <Image
+                      src="/Feedback_sys_logo.png"
+                      alt="Feedback System Logo"
+                      width={isMobile ? 90 : 140}
+                      height={isMobile ? 90 : 140}
+                      className="sketch-logo-dark"
+                      style={{ objectFit: 'contain', filter: 'brightness(1.1)' }}
+                    />
                   </Link>
                 </div>
                 <div className="flex flex-col leading-tight">
@@ -284,7 +284,7 @@ export default function Dashboard() {
                     </button>
                   </Link>
                 )}
-                <button 
+                <button
                   className="flex-1 sm:flex-none px-3 sm:px-4 py-2 border-2 border-white/30 bg-white/10 text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2"
                   onClick={handleLogout}
                 >
@@ -300,516 +300,508 @@ export default function Dashboard() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-6 sm:py-12 relative z-10 pointer-events-none">
         <div className="pointer-events-auto">
-        {/* Stats Cards - Enhanced Design */}
-        {stats && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-12">
-            <Card className="bg-white/10 border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
-              <CardContent className="p-3 sm:p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <p className="text-xs sm:text-sm font-semibold text-white/80 mb-1">Total Complaints</p>
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{stats.total}</p>
-                  </div>
-                  <div className="p-2 sm:p-3 rounded-full bg-white/10 flex-shrink-0">
-                    <MessageSquare className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
-              <CardContent className="p-3 sm:p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <p className="text-xs sm:text-sm font-semibold text-white/80 mb-1">Pending</p>
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{stats.pending}</p>
-                  </div>
-                  <div className="p-2 sm:p-3 rounded-full bg-orange-500/20 flex-shrink-0">
-                    <Clock className="h-4 w-4 sm:h-6 sm:w-6 text-orange-400" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
-              <CardContent className="p-3 sm:p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <p className="text-xs sm:text-sm font-semibold text-white/80 mb-1">In Progress</p>
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{stats.in_progress}</p>
-                  </div>
-                  <div className="p-2 sm:p-3 rounded-full bg-blue-500/20 flex-shrink-0">
-                    <TrendingUp className="h-4 w-4 sm:h-6 sm:w-6 text-blue-400" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
-              <CardContent className="p-3 sm:p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <p className="text-xs sm:text-sm font-semibold text-white/80 mb-1">Resolved</p>
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{stats.resolved}</p>
-                  </div>
-                  <div className="p-2 sm:p-3 rounded-full bg-green-500/20 flex-shrink-0">
-                    <CheckCircle className="h-4 w-4 sm:h-6 sm:w-6 text-green-400" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-
-        {/* New Complaint Button - Only for Students */}
-        {user.role === 'student' && (
-          <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center sm:text-left w-full sm:w-auto">My Complaints</h2>
-            <button 
-              onClick={() => setShowNewComplaint(true)}
-              className="w-full sm:w-auto px-5 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-sm font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95"
-            >
-              <Plus className="h-4 w-4" />
-              New Complaint
-            </button>
-          </div>
-        )}
-
-        {/* New Complaint Form Modal */}
-        {showNewComplaint && (
-          <Card className="mb-4 sm:mb-6 bg-white/10 border-2 border-white/20 rounded-xl">
-            <CardHeader className="flex flex-row items-center justify-between p-4 sm:p-6">
-              <div className="flex-1 pr-2">
-                <CardTitle className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1">Submit New Complaint</CardTitle>
-                <CardDescription className="text-xs sm:text-sm text-white/80">
-                  Fill in the details to submit a new complaint
-                </CardDescription>
-              </div>
-              <button
-                onClick={() => setShowNewComplaint(false)}
-                className="h-8 w-8 sm:h-10 sm:w-10 p-0 text-white hover:bg-white/10 rounded-lg transition-colors flex-shrink-0"
-              >
-                <X className="h-5 w-5 sm:h-6 sm:w-6" />
-              </button>
-            </CardHeader>
-            <CardContent className="p-4 sm:p-6">
-              <form onSubmit={handleSubmit(onSubmitComplaint)} className="space-y-4">
-                <div className="bg-orange-500/20 border-l-4 border-orange-400 p-4 rounded-lg">
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <AlertCircle className="h-5 w-5 text-orange-400" />
+          {/* Stats Cards - Enhanced Design */}
+          {stats && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-12">
+              <Card className="bg-white/10 border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
+                <CardContent className="p-3 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <p className="text-xs sm:text-sm font-semibold text-white/80 mb-1">Total Complaints</p>
+                      <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{stats.total}</p>
                     </div>
-                    <div className="ml-3">
-                      <p className="text-sm text-white">
-                        <strong>Important Notice:</strong> Please ensure not to write any inappropriate words. 
-                        You are anonymous to the department you are sending this complaint to.
-                      </p>
+                    <div className="p-2 sm:p-3 rounded-full bg-white/10 flex-shrink-0">
+                      <MessageSquare className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                     </div>
                   </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs sm:text-sm font-semibold text-white mb-2">
-                      Title <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      {...register('title', { 
-                        required: 'Title is required',
-                        minLength: {
-                          value: 5,
-                          message: 'Title must be at least 5 characters'
-                        }
-                      })}
-                      type="text"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-white/30 bg-white/10 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
-                      placeholder="Enter complaint title"
-                    />
-                    {errors.title && (
-                      <p className="mt-1 text-xs sm:text-sm text-red-400">{errors.title.message}</p>
-                    )}
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white/10 border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
+                <CardContent className="p-3 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <p className="text-xs sm:text-sm font-semibold text-white/80 mb-1">Pending</p>
+                      <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{stats.pending}</p>
+                    </div>
+                    <div className="p-2 sm:p-3 rounded-full bg-orange-500/20 flex-shrink-0">
+                      <Clock className="h-4 w-4 sm:h-6 sm:w-6 text-orange-400" />
+                    </div>
                   </div>
+                </CardContent>
+              </Card>
 
-                  <div>
-                    <label className="block text-xs sm:text-sm font-semibold text-white mb-2">
-                      Priority
-                    </label>
-                    <select
-                      {...register('priority')}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-white/30 bg-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
-                    >
-                      <option value="low" className="bg-gray-800">Low</option>
-                      <option value="medium" className="bg-gray-800">Medium</option>
-                      <option value="high" className="bg-gray-800">High</option>
-                    </select>
+              <Card className="bg-white/10 border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
+                <CardContent className="p-3 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <p className="text-xs sm:text-sm font-semibold text-white/80 mb-1">In Progress</p>
+                      <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{stats.in_progress}</p>
+                    </div>
+                    <div className="p-2 sm:p-3 rounded-full bg-blue-500/20 flex-shrink-0">
+                      <TrendingUp className="h-4 w-4 sm:h-6 sm:w-6 text-blue-400" />
+                    </div>
                   </div>
-                </div>
+                </CardContent>
+              </Card>
 
-                <div>
-                  <label className="block text-xs sm:text-sm font-semibold text-white mb-2">
-                    Domain <span className="text-red-400">*</span>
-                  </label>
-                  <select
-                    {...register('domainId', { 
-                      required: 'Domain is required',
-                      valueAsNumber: true
-                    })}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-white/30 bg-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
-                  >
-                    <option value="" className="bg-gray-800">Select a domain</option>
-                    {domains.map((domain) => (
-                      <option key={domain.id} value={domain.id} className="bg-gray-800">
-                        {domain.name}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.domainId && (
-                    <p className="mt-1 text-xs sm:text-sm text-red-400">{errors.domainId.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-xs sm:text-sm font-semibold text-white mb-2">
-                    Description <span className="text-red-400">*</span>
-                  </label>
-                  <textarea
-                    {...register('description', { 
-                      required: 'Description is required',
-                      minLength: {
-                        value: 10,
-                        message: 'Description must be at least 10 characters'
-                      }
-                    })}
-                    rows={5}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-white/30 bg-white/10 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
-                    placeholder="Describe your complaint in detail..."
-                  />
-                  {errors.description && (
-                    <p className="mt-1 text-xs sm:text-sm text-red-400">{errors.description.message}</p>
-                  )}
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                  <button 
-                    type="submit" 
-                    disabled={submitting}
-                    className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-sm font-bold disabled:opacity-50 active:scale-95"
-                  >
-                    {submitting ? 'Submitting...' : 'Submit Complaint'}
-                  </button>
-                  <button 
-                    type="button" 
-                    onClick={() => {
-                      setShowNewComplaint(false);
-                      reset();
-                    }}
-                    className="w-full sm:w-auto px-6 py-2.5 border-2 border-white/30 bg-white/10 text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-sm font-semibold active:scale-95"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Complaints Section with Tabs */}
-        <div className="mb-6 sm:mb-10">
-          {/* Quick Filters (role-aware) */}
-          <div className="mb-4 flex flex-wrap items-center gap-2 justify-center sm:justify-start">
-            <span className="inline-flex items-center gap-2 text-xs sm:text-sm text-white font-semibold w-full sm:w-auto justify-center sm:justify-start">
-              <Filter className="h-3 w-3 sm:h-4 sm:w-4" />
-              Quick filters:
-            </span>
-            {['all', 'pending', 'in_progress', 'rejected'].map((value) => {
-              const label =
-                value === 'all'
-                  ? 'All'
-                  : value === 'in_progress'
-                  ? 'In progress'
-                  : value.charAt(0).toUpperCase() + value.slice(1);
-              const isActive = statusFilter === value;
-              return (
-                <button
-                  key={value}
-                  type="button"
-                  onClick={() => setStatusFilter(value as typeof statusFilter)}
-                  className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold border-2 transition-colors active:scale-95 ${
-                    isActive
-                      ? 'bg-orange-500/30 text-white border-orange-400'
-                      : 'bg-white/10 text-white/80 border-white/30 hover:bg-white/20 hover:border-white/50'
-                  }`}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Tab Navigation */}
-          <div className="flex gap-2 sm:gap-3 mb-4 sm:mb-6 border-b-2 border-white/20 overflow-x-auto pb-2">
-            <button
-              onClick={() => setActiveTab('active')}
-              className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-bold transition-colors relative whitespace-nowrap ${
-                activeTab === 'active'
-                  ? 'text-orange-400'
-                  : 'text-white/60 hover:text-white/80'
-              }`}
-            >
-              <span className="flex items-center gap-1 sm:gap-2">
-                Active Complaints
-                {activeComplaints.length > 0 && (
-                  <span className={`px-1.5 sm:px-2 py-0.5 rounded-full text-xs sm:text-sm font-semibold ${
-                    activeTab === 'active' ? 'bg-orange-500/30 text-white' : 'bg-white/10 text-white/60'
-                  }`}>
-                    {activeComplaints.length}
-                  </span>
-                )}
-              </span>
-              {activeTab === 'active' && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-400 rounded-t"></span>
-              )}
-            </button>
-            {resolvedComplaints.length > 0 && (
-              <button
-                onClick={() => setActiveTab('resolved')}
-                className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-bold transition-colors relative whitespace-nowrap ${
-                  activeTab === 'resolved'
-                    ? 'text-green-400'
-                    : 'text-white/60 hover:text-white/80'
-                }`}
-              >
-                <span className="flex items-center gap-1 sm:gap-2">
-                  Resolved Complaints
-                  <span className={`px-1.5 sm:px-2 py-0.5 rounded-full text-xs sm:text-sm font-semibold ${
-                    activeTab === 'resolved' ? 'bg-green-500/30 text-white' : 'bg-white/10 text-white/60'
-                  }`}>
-                    {resolvedComplaints.length}
-                  </span>
-                </span>
-                {activeTab === 'resolved' && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-400 rounded-t"></span>
-                )}
-              </button>
-            )}
-          </div>
-
-          {/* Active Complaints */}
-          {activeTab === 'active' && (
-            <div>
-              {filteredActiveComplaints.length === 0 ? (
-                <Card className="bg-white/10 border-2 border-white/20 rounded-xl">
-                  <CardContent className="text-center py-8 sm:py-12 px-4">
-                    <FileText className="h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-4 text-white/60" />
-                    <p className="text-white text-sm sm:text-base md:text-lg font-semibold mb-4">
-                      {statusFilter === 'all'
-                        ? 'No active complaints found.'
-                        : 'No complaints match the selected filter.'}
-                    </p>
-                    {user.role === 'student' && (
-                      <button 
-                        onClick={() => setShowNewComplaint(true)}
-                        className="mt-4 px-5 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-sm font-bold flex items-center justify-center gap-2 mx-auto active:scale-95"
-                      >
-                        <Plus className="h-4 w-4" />
-                        Create Your First Complaint
-                      </button>
-                    )}
-                  </CardContent>
-                </Card>
-              ) : (
-                <div className="grid gap-4 sm:gap-6">
-                  {filteredActiveComplaints.map((complaint) => (
-                    <Card key={complaint.id} className="bg-white/10 border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
-                      <CardHeader className="p-4 sm:p-6">
-                        <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-0">
-                          <div className="flex-1 w-full sm:w-auto">
-                            <CardTitle className="text-base sm:text-lg md:text-xl flex items-center gap-2 text-white mb-2 font-bold flex-wrap">
-                              {complaint.title}
-                              {user?.role === 'student' && complaint.adminSeen && (
-                                <span className="inline-flex items-center gap-1 text-xs text-blue-400">
-                                  <CheckCheck className="h-3 w-3 sm:h-4 sm:w-4" />
-                                  Seen by admin
-                                </span>
-                              )}
-                            </CardTitle>
-                            <CardDescription className="text-xs sm:text-sm text-white/80 flex items-center gap-1 sm:gap-2 flex-wrap">
-                              <span className="flex items-center gap-1">
-                                <MessageSquare className="h-3 w-3 sm:h-4 sm:w-4" />
-                                {complaint.domainName}
-                              </span>
-                              <span>•</span>
-                              <span>{safeFormatDate(complaint.createdAt)}</span>
-                              {user?.role === 'student' && complaint.adminSeen && (
-                                <>
-                                  <span>•</span>
-                                  <span className="text-blue-400">Seen by admin</span>
-                                </>
-                              )}
-                            </CardDescription>
-                          </div>
-                          <div className="flex gap-2 flex-wrap w-full sm:w-auto">
-                            <span className={`inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold border-2 ${
-                              complaint.status === 'pending' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-400' :
-                              complaint.status === 'in_progress' ? 'bg-blue-500/20 text-blue-300 border-blue-400' :
-                              complaint.status === 'resolved' ? 'bg-green-500/20 text-green-300 border-green-400' :
-                              'bg-red-500/20 text-red-300 border-red-400'
-                            }`}>
-                              {complaint.status.replace('_', ' ')}
-                            </span>
-                            <span className={`inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold border-2 ${
-                              complaint.priority === 'low' ? 'bg-gray-500/20 text-gray-300 border-gray-400' :
-                              complaint.priority === 'medium' ? 'bg-orange-500/20 text-orange-300 border-orange-400' :
-                              'bg-red-500/20 text-red-300 border-red-400'
-                            }`}>
-                              {complaint.priority}
-                            </span>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
-                        <div className="space-y-3 sm:space-y-4">
-                          <div className="bg-white/5 p-3 sm:p-4 rounded-lg border-2 border-white/10">
-                            <p className="text-white text-xs sm:text-sm leading-relaxed">{complaint.description}</p>
-                          </div>
-                          
-                          {user.role === 'super_admin' && complaint.studentName && (
-                            <div className="text-xs sm:text-sm text-white p-2 sm:p-3 bg-blue-500/20 rounded-lg border-2 border-blue-400/30">
-                              <strong>Student:</strong> {complaint.studentName} ({complaint.studentEmail})
-                            </div>
-                          )}
-                          
-                          {(user.role === 'sub_admin' || user.role === 'super_admin') && (
-                            <div className="flex flex-wrap gap-2 pt-2 sm:pt-3 justify-center sm:justify-start">
-                              {!complaint.adminSeen && (
-                                <button 
-                                  onClick={() => handleMarkSeen(complaint.id)}
-                                  className="px-3 sm:px-4 py-2 border-2 border-white/30 bg-white/10 text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-xs sm:text-sm font-semibold flex items-center gap-2 active:scale-95"
-                                >
-                                  <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
-                                  Mark Seen
-                                </button>
-                              )}
-                              {complaint.status === 'pending' && (
-                                <button 
-                                  onClick={() => handleStatusUpdate(complaint.id, 'in_progress')}
-                                  className="px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-xs sm:text-sm font-bold flex items-center gap-2 active:scale-95"
-                                >
-                                  <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
-                                  Start Progress
-                                </button>
-                              )}
-                              {complaint.status === 'in_progress' && (
-                                <>
-                                  <button 
-                                    onClick={() => {
-                                      const resolution = prompt('Enter resolution details:');
-                                      if (resolution) {
-                                        handleStatusUpdate(complaint.id, 'resolved', resolution);
-                                      }
-                                    }}
-                                    className="px-3 sm:px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 border-2 border-white/30 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 text-xs sm:text-sm font-bold flex items-center gap-2 active:scale-95"
-                                  >
-                                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-                                    Resolve
-                                  </button>
-                                  <button 
-                                    onClick={() => handleStatusUpdate(complaint.id, 'rejected')}
-                                    className="px-3 sm:px-4 py-2 border-2 border-red-400/50 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/30 hover:border-red-400 transition-all duration-300 text-xs sm:text-sm font-semibold flex items-center gap-2 active:scale-95"
-                                  >
-                                    <AlertCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-                                    Reject
-                                  </button>
-                                </>
-                              )}
-                              {user.role === 'super_admin' && (
-                                <button 
-                                  onClick={() => {
-                                    setSelectedComplaint(complaint);
-                                    setShowTransferModal(true);
-                                  }}
-                                  className="px-3 sm:px-4 py-2 border-2 border-white/30 bg-white/10 text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-xs sm:text-sm font-semibold flex items-center gap-2 active:scale-95"
-                                >
-                                  <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
-                                  Transfer
-                                </button>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              )}
+              <Card className="bg-white/10 border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
+                <CardContent className="p-3 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <p className="text-xs sm:text-sm font-semibold text-white/80 mb-1">Resolved</p>
+                      <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{stats.resolved}</p>
+                    </div>
+                    <div className="p-2 sm:p-3 rounded-full bg-green-500/20 flex-shrink-0">
+                      <CheckCircle className="h-4 w-4 sm:h-6 sm:w-6 text-green-400" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           )}
 
-          {/* Resolved Complaints */}
-          {activeTab === 'resolved' && resolvedComplaints.length > 0 && (
-            <div className="grid gap-4 sm:gap-6">
-              {resolvedComplaints.map((complaint) => (
-                <Card key={complaint.id} className="bg-white/10 border-2 border-green-400/30 hover:bg-white/15 hover:border-green-400/50 transition-all duration-300 rounded-xl">
-                  <CardHeader className="p-4 sm:p-6">
-                    <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-0">
-                      <div className="flex-1 w-full sm:w-auto">
-                        <CardTitle className="text-base sm:text-lg md:text-xl flex items-center gap-2 text-white mb-2 font-bold flex-wrap">
-                          {complaint.title}
-                          {user?.role === 'student' && complaint.adminSeen && (
-                            <CheckCheck className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
-                          )}
-                        </CardTitle>
-                        <CardDescription className="text-xs sm:text-sm text-white/80 flex items-center gap-1 sm:gap-2 flex-wrap">
-                          <span className="flex items-center gap-1">
-                            <MessageSquare className="h-3 w-3 sm:h-4 sm:w-4" />
-                            {complaint.domainName}
-                          </span>
-                          <span>•</span>
-                          <span>Created {safeFormatDate(complaint.createdAt)}</span>
-                          {complaint.resolvedAt && (
-                            <>
-                              <span>•</span>
-                              <span className="text-green-400">Resolved {safeFormatDate(complaint.resolvedAt)}</span>
-                            </>
-                          )}
-                        </CardDescription>
+          {/* New Complaint Button - Only for Students */}
+          {user.role === 'student' && (
+            <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center sm:text-left w-full sm:w-auto">My Complaints</h2>
+              <button
+                onClick={() => setShowNewComplaint(true)}
+                className="w-full sm:w-auto px-5 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-sm font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95"
+              >
+                <Plus className="h-4 w-4" />
+                New Complaint
+              </button>
+            </div>
+          )}
+
+          {/* New Complaint Form Modal */}
+          {showNewComplaint && (
+            <Card className="mb-4 sm:mb-6 bg-white/10 border-2 border-white/20 rounded-xl">
+              <CardHeader className="flex flex-row items-center justify-between p-4 sm:p-6">
+                <div className="flex-1 pr-2">
+                  <CardTitle className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1">Submit New Complaint</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm text-white/80">
+                    Fill in the details to submit a new complaint
+                  </CardDescription>
+                </div>
+                <button
+                  onClick={() => setShowNewComplaint(false)}
+                  className="h-8 w-8 sm:h-10 sm:w-10 p-0 text-white hover:bg-white/10 rounded-lg transition-colors flex-shrink-0"
+                >
+                  <X className="h-5 w-5 sm:h-6 sm:w-6" />
+                </button>
+              </CardHeader>
+              <CardContent className="p-4 sm:p-6">
+                <form onSubmit={handleSubmit(onSubmitComplaint)} className="space-y-4">
+                  <div className="bg-orange-500/20 border-l-4 border-orange-400 p-4 rounded-lg">
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <AlertCircle className="h-5 w-5 text-orange-400" />
                       </div>
-                      <div className="flex gap-2 w-full sm:w-auto">
-                        <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-green-500/20 text-green-300 border-2 border-green-400">
-                          Resolved
-                        </span>
-                        <span className={`inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold border-2 ${
-                          complaint.priority === 'low' ? 'bg-gray-500/20 text-gray-300 border-gray-400' :
-                          complaint.priority === 'medium' ? 'bg-orange-500/20 text-orange-300 border-orange-400' :
-                          'bg-red-500/20 text-red-300 border-red-400'
-                        }`}>
-                          {complaint.priority}
-                        </span>
+                      <div className="ml-3">
+                        <p className="text-sm text-white">
+                          <strong>Important Notice:</strong> Please ensure not to write any inappropriate words.
+                          You are anonymous to the department you are sending this complaint to.
+                        </p>
                       </div>
                     </div>
-                  </CardHeader>
-                  <CardContent className="p-4 sm:p-6 pt-0">
-                    <div className="space-y-3 sm:space-y-4">
-                      <div className="bg-white/5 p-3 sm:p-4 rounded-lg border-2 border-white/10">
-                        <h5 className="font-bold text-sm sm:text-base text-white mb-2">Problem:</h5>
-                        <p className="text-white text-xs sm:text-sm leading-relaxed">{complaint.description}</p>
-                      </div>
-                      {complaint.resolutionDetails && (
-                        <div className="bg-green-500/20 p-3 sm:p-4 rounded-lg border-2 border-green-400/30">
-                          <h5 className="font-bold text-sm sm:text-base text-green-300 mb-2 flex items-center gap-2">
-                            <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
-                            Solution:
-                          </h5>
-                          <p className="text-white text-xs sm:text-sm leading-relaxed">{complaint.resolutionDetails}</p>
-                        </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs sm:text-sm font-semibold text-white mb-2">
+                        Title <span className="text-red-400">*</span>
+                      </label>
+                      <input
+                        {...register('title', {
+                          required: 'Title is required',
+                          minLength: {
+                            value: 5,
+                            message: 'Title must be at least 5 characters'
+                          }
+                        })}
+                        type="text"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-white/30 bg-white/10 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
+                        placeholder="Enter complaint title"
+                      />
+                      {errors.title && (
+                        <p className="mt-1 text-xs sm:text-sm text-red-400">{errors.title.message}</p>
                       )}
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+
+                    <div>
+                      <label className="block text-xs sm:text-sm font-semibold text-white mb-2">
+                        Priority
+                      </label>
+                      <select
+                        {...register('priority')}
+                        className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-white/30 bg-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
+                      >
+                        <option value="low" className="bg-gray-800">Low</option>
+                        <option value="medium" className="bg-gray-800">Medium</option>
+                        <option value="high" className="bg-gray-800">High</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs sm:text-sm font-semibold text-white mb-2">
+                      Domain <span className="text-red-400">*</span>
+                    </label>
+                    <select
+                      {...register('domainId', {
+                        required: 'Domain is required',
+                        valueAsNumber: true
+                      })}
+                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-white/30 bg-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
+                    >
+                      <option value="" className="bg-gray-800">Select a domain</option>
+                      {domains.map((domain) => (
+                        <option key={domain.id} value={domain.id} className="bg-gray-800">
+                          {domain.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.domainId && (
+                      <p className="mt-1 text-xs sm:text-sm text-red-400">{errors.domainId.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-xs sm:text-sm font-semibold text-white mb-2">
+                      Description <span className="text-red-400">*</span>
+                    </label>
+                    <textarea
+                      {...register('description', {
+                        required: 'Description is required',
+                        minLength: {
+                          value: 10,
+                          message: 'Description must be at least 10 characters'
+                        }
+                      })}
+                      rows={5}
+                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-white/30 bg-white/10 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
+                      placeholder="Describe your complaint in detail..."
+                    />
+                    {errors.description && (
+                      <p className="mt-1 text-xs sm:text-sm text-red-400">{errors.description.message}</p>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-sm font-bold disabled:opacity-50 active:scale-95"
+                    >
+                      {submitting ? 'Submitting...' : 'Submit Complaint'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowNewComplaint(false);
+                        reset();
+                      }}
+                      className="w-full sm:w-auto px-6 py-2.5 border-2 border-white/30 bg-white/10 text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-sm font-semibold active:scale-95"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
           )}
-        </div>
+
+          {/* Complaints Section with Tabs */}
+          <div className="mb-6 sm:mb-10">
+            {/* Quick Filters (role-aware) */}
+            <div className="mb-4 flex flex-wrap items-center gap-2 justify-center sm:justify-start">
+              <span className="inline-flex items-center gap-2 text-xs sm:text-sm text-white font-semibold w-full sm:w-auto justify-center sm:justify-start">
+                <Filter className="h-3 w-3 sm:h-4 sm:w-4" />
+                Quick filters:
+              </span>
+              {['all', 'pending', 'in_progress', 'rejected'].map((value) => {
+                const label =
+                  value === 'all'
+                    ? 'All'
+                    : value === 'in_progress'
+                      ? 'In progress'
+                      : value.charAt(0).toUpperCase() + value.slice(1);
+                const isActive = statusFilter === value;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setStatusFilter(value as typeof statusFilter)}
+                    className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold border-2 transition-colors active:scale-95 ${isActive
+                        ? 'bg-orange-500/30 text-white border-orange-400'
+                        : 'bg-white/10 text-white/80 border-white/30 hover:bg-white/20 hover:border-white/50'
+                      }`}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Tab Navigation */}
+            <div className="flex gap-2 sm:gap-3 mb-4 sm:mb-6 border-b-2 border-white/20 overflow-x-auto pb-2">
+              <button
+                onClick={() => setActiveTab('active')}
+                className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-bold transition-colors relative whitespace-nowrap ${activeTab === 'active'
+                    ? 'text-orange-400'
+                    : 'text-white/60 hover:text-white/80'
+                  }`}
+              >
+                <span className="flex items-center gap-1 sm:gap-2">
+                  Active Complaints
+                  {activeComplaints.length > 0 && (
+                    <span className={`px-1.5 sm:px-2 py-0.5 rounded-full text-xs sm:text-sm font-semibold ${activeTab === 'active' ? 'bg-orange-500/30 text-white' : 'bg-white/10 text-white/60'
+                      }`}>
+                      {activeComplaints.length}
+                    </span>
+                  )}
+                </span>
+                {activeTab === 'active' && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-400 rounded-t"></span>
+                )}
+              </button>
+              {resolvedComplaints.length > 0 && (
+                <button
+                  onClick={() => setActiveTab('resolved')}
+                  className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-bold transition-colors relative whitespace-nowrap ${activeTab === 'resolved'
+                      ? 'text-green-400'
+                      : 'text-white/60 hover:text-white/80'
+                    }`}
+                >
+                  <span className="flex items-center gap-1 sm:gap-2">
+                    Resolved Complaints
+                    <span className={`px-1.5 sm:px-2 py-0.5 rounded-full text-xs sm:text-sm font-semibold ${activeTab === 'resolved' ? 'bg-green-500/30 text-white' : 'bg-white/10 text-white/60'
+                      }`}>
+                      {resolvedComplaints.length}
+                    </span>
+                  </span>
+                  {activeTab === 'resolved' && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-400 rounded-t"></span>
+                  )}
+                </button>
+              )}
+            </div>
+
+            {/* Active Complaints */}
+            {activeTab === 'active' && (
+              <div>
+                {filteredActiveComplaints.length === 0 ? (
+                  <Card className="bg-white/10 border-2 border-white/20 rounded-xl">
+                    <CardContent className="text-center py-8 sm:py-12 px-4">
+                      <FileText className="h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-4 text-white/60" />
+                      <p className="text-white text-sm sm:text-base md:text-lg font-semibold mb-4">
+                        {statusFilter === 'all'
+                          ? 'No active complaints found.'
+                          : 'No complaints match the selected filter.'}
+                      </p>
+                      {user.role === 'student' && (
+                        <button
+                          onClick={() => setShowNewComplaint(true)}
+                          className="mt-4 px-5 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-sm font-bold flex items-center justify-center gap-2 mx-auto active:scale-95"
+                        >
+                          <Plus className="h-4 w-4" />
+                          Create Your First Complaint
+                        </button>
+                      )}
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <div className="grid gap-4 sm:gap-6">
+                    {filteredActiveComplaints.map((complaint) => (
+                      <Card key={complaint.id} className="bg-white/10 border-2 border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 rounded-xl">
+                        <CardHeader className="p-4 sm:p-6">
+                          <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-0">
+                            <div className="flex-1 w-full sm:w-auto">
+                              <CardTitle className="text-base sm:text-lg md:text-xl flex items-center gap-2 text-white mb-2 font-bold flex-wrap">
+                                {complaint.title}
+                                {user?.role === 'student' && complaint.adminSeen && (
+                                  <span className="inline-flex items-center gap-1 text-xs text-blue-400">
+                                    <CheckCheck className="h-3 w-3 sm:h-4 sm:w-4" />
+                                    Seen by admin
+                                  </span>
+                                )}
+                              </CardTitle>
+                              <CardDescription className="text-xs sm:text-sm text-white/80 flex items-center gap-1 sm:gap-2 flex-wrap">
+                                <span className="flex items-center gap-1">
+                                  <MessageSquare className="h-3 w-3 sm:h-4 sm:w-4" />
+                                  {complaint.domainName}
+                                </span>
+                                <span>•</span>
+                                <span>{safeFormatDate(complaint.createdAt)}</span>
+                                {user?.role === 'student' && complaint.adminSeen && (
+                                  <>
+                                    <span>•</span>
+                                    <span className="text-blue-400">Seen by admin</span>
+                                  </>
+                                )}
+                              </CardDescription>
+                            </div>
+                            <div className="flex gap-2 flex-wrap w-full sm:w-auto">
+                              <span className={`inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold border-2 ${complaint.status === 'pending' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-400' :
+                                  complaint.status === 'in_progress' ? 'bg-blue-500/20 text-blue-300 border-blue-400' :
+                                    complaint.status === 'resolved' ? 'bg-green-500/20 text-green-300 border-green-400' :
+                                      'bg-red-500/20 text-red-300 border-red-400'
+                                }`}>
+                                {complaint.status.replace('_', ' ')}
+                              </span>
+                              <span className={`inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold border-2 ${complaint.priority === 'low' ? 'bg-gray-500/20 text-gray-300 border-gray-400' :
+                                  complaint.priority === 'medium' ? 'bg-orange-500/20 text-orange-300 border-orange-400' :
+                                    'bg-red-500/20 text-red-300 border-red-400'
+                                }`}>
+                                {complaint.priority}
+                              </span>
+                            </div>
+                          </div>
+                        </CardHeader>
+                        <CardContent className="p-4 sm:p-6 pt-0">
+                          <div className="space-y-3 sm:space-y-4">
+                            <div className="bg-white/5 p-3 sm:p-4 rounded-lg border-2 border-white/10">
+                              <p className="text-white text-xs sm:text-sm leading-relaxed">{complaint.description}</p>
+                            </div>
+
+                            {user.role === 'super_admin' && complaint.studentName && (
+                              <div className="text-xs sm:text-sm text-white p-2 sm:p-3 bg-blue-500/20 rounded-lg border-2 border-blue-400/30">
+                                <strong>Student:</strong> {complaint.studentName} ({complaint.studentEmail})
+                              </div>
+                            )}
+
+                            {(user.role === 'sub_admin' || user.role === 'super_admin') && (
+                              <div className="flex flex-wrap gap-2 pt-2 sm:pt-3 justify-center sm:justify-start">
+                                {!complaint.adminSeen && (
+                                  <button
+                                    onClick={() => handleMarkSeen(complaint.id)}
+                                    className="px-3 sm:px-4 py-2 border-2 border-white/30 bg-white/10 text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-xs sm:text-sm font-semibold flex items-center gap-2 active:scale-95"
+                                  >
+                                    <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
+                                    Mark Seen
+                                  </button>
+                                )}
+                                {complaint.status === 'pending' && (
+                                  <button
+                                    onClick={() => handleStatusUpdate(complaint.id, 'in_progress')}
+                                    className="px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-xs sm:text-sm font-bold flex items-center gap-2 active:scale-95"
+                                  >
+                                    <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
+                                    Start Progress
+                                  </button>
+                                )}
+                                {complaint.status === 'in_progress' && (
+                                  <>
+                                    <button
+                                      onClick={() => {
+                                        const resolution = prompt('Enter resolution details:');
+                                        if (resolution) {
+                                          handleStatusUpdate(complaint.id, 'resolved', resolution);
+                                        }
+                                      }}
+                                      className="px-3 sm:px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 border-2 border-white/30 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 text-xs sm:text-sm font-bold flex items-center gap-2 active:scale-95"
+                                    >
+                                      <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4" />
+                                      Resolve
+                                    </button>
+                                    <button
+                                      onClick={() => handleStatusUpdate(complaint.id, 'rejected')}
+                                      className="px-3 sm:px-4 py-2 border-2 border-red-400/50 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/30 hover:border-red-400 transition-all duration-300 text-xs sm:text-sm font-semibold flex items-center gap-2 active:scale-95"
+                                    >
+                                      <AlertCircle className="h-3 w-3 sm:h-4 sm:w-4" />
+                                      Reject
+                                    </button>
+                                  </>
+                                )}
+                                {(user.role === 'super_admin' || user.role === 'sub_admin') && (
+                                  <button
+                                    onClick={() => {
+                                      setSelectedComplaint(complaint);
+                                      setShowTransferModal(true);
+                                    }}
+                                    className="px-3 sm:px-4 py-2 border-2 border-white/30 bg-white/10 text-white rounded-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-xs sm:text-sm font-semibold flex items-center gap-2 active:scale-95"
+                                  >
+                                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
+                                    Transfer
+                                  </button>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Resolved Complaints */}
+            {activeTab === 'resolved' && resolvedComplaints.length > 0 && (
+              <div className="grid gap-4 sm:gap-6">
+                {resolvedComplaints.map((complaint) => (
+                  <Card key={complaint.id} className="bg-white/10 border-2 border-green-400/30 hover:bg-white/15 hover:border-green-400/50 transition-all duration-300 rounded-xl">
+                    <CardHeader className="p-4 sm:p-6">
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-0">
+                        <div className="flex-1 w-full sm:w-auto">
+                          <CardTitle className="text-base sm:text-lg md:text-xl flex items-center gap-2 text-white mb-2 font-bold flex-wrap">
+                            {complaint.title}
+                            {user?.role === 'student' && complaint.adminSeen && (
+                              <CheckCheck className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
+                            )}
+                          </CardTitle>
+                          <CardDescription className="text-xs sm:text-sm text-white/80 flex items-center gap-1 sm:gap-2 flex-wrap">
+                            <span className="flex items-center gap-1">
+                              <MessageSquare className="h-3 w-3 sm:h-4 sm:w-4" />
+                              {complaint.domainName}
+                            </span>
+                            <span>•</span>
+                            <span>Created {safeFormatDate(complaint.createdAt)}</span>
+                            {complaint.resolvedAt && (
+                              <>
+                                <span>•</span>
+                                <span className="text-green-400">Resolved {safeFormatDate(complaint.resolvedAt)}</span>
+                              </>
+                            )}
+                          </CardDescription>
+                        </div>
+                        <div className="flex gap-2 w-full sm:w-auto">
+                          <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-green-500/20 text-green-300 border-2 border-green-400">
+                            Resolved
+                          </span>
+                          <span className={`inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold border-2 ${complaint.priority === 'low' ? 'bg-gray-500/20 text-gray-300 border-gray-400' :
+                              complaint.priority === 'medium' ? 'bg-orange-500/20 text-orange-300 border-orange-400' :
+                                'bg-red-500/20 text-red-300 border-red-400'
+                            }`}>
+                            {complaint.priority}
+                          </span>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-4 sm:p-6 pt-0">
+                      <div className="space-y-3 sm:space-y-4">
+                        <div className="bg-white/5 p-3 sm:p-4 rounded-lg border-2 border-white/10">
+                          <h5 className="font-bold text-sm sm:text-base text-white mb-2">Problem:</h5>
+                          <p className="text-white text-xs sm:text-sm leading-relaxed">{complaint.description}</p>
+                        </div>
+                        {complaint.resolutionDetails && (
+                          <div className="bg-green-500/20 p-3 sm:p-4 rounded-lg border-2 border-green-400/30">
+                            <h5 className="font-bold text-sm sm:text-base text-green-300 mb-2 flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                              Solution:
+                            </h5>
+                            <p className="text-white text-xs sm:text-sm leading-relaxed">{complaint.resolutionDetails}</p>
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </main>
 
@@ -872,14 +864,14 @@ export default function Dashboard() {
                   />
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 border-2 border-white/30 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 text-sm font-bold active:scale-95"
                   >
                     Transfer
                   </button>
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={() => {
                       setShowTransferModal(false);
                       setSelectedComplaint(null);
