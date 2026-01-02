@@ -20,8 +20,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "JKLU Feedback System",
-  description: "Anonymous Complaint & Ticket Management System",
+  title: "CampusVoice @ JKLU",
+  description: "CampusVoice @ JKLU is the official student feedback and complaint portal of JK Lakshmipat University.",
 };
 
 export default function RootLayout({

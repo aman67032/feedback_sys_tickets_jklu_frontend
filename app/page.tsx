@@ -15,22 +15,22 @@ export default function Home() {
 
   useEffect(() => {
     setIsLoggedIn(isAuthenticated());
-    
+
     // Detect mobile device - debounced for performance
     const checkMobile = () => {
       const isMobileDevice = window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       setIsMobile(isMobileDevice);
     };
-    
+
     checkMobile();
-    
+
     // Debounce resize listener for better performance
     let resizeTimeout: NodeJS.Timeout;
     const handleResize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(checkMobile, 150);
     };
-    
+
     window.addEventListener('resize', handleResize, { passive: true });
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -43,28 +43,28 @@ export default function Home() {
       {/* Animated Dark Background - Desktop */}
       {!isMobile && (
         <div className="absolute inset-0 z-0 pointer-events-auto hidden md:block">
-          <FloatingLines 
-           topColor="#FF9F00"
-           bottomColor="#0000FC"
-           intensity={1.0}
-           rotationSpeed={0.3}
-           glowAmount={0.005}
-           pillarWidth={3.0}
-           pillarHeight={0.4}
-           noiseIntensity={0.5}
-           pillarRotation={0}
-           interactive={false}
-           mixBlendMode="normal"
+          <FloatingLines
+            topColor="#FF9F00"
+            bottomColor="#0000FC"
+            intensity={1.0}
+            rotationSpeed={0.3}
+            glowAmount={0.005}
+            pillarWidth={3.0}
+            pillarHeight={0.4}
+            noiseIntensity={0.5}
+            pillarRotation={0}
+            interactive={false}
+            mixBlendMode="normal"
           />
         </div>
       )}
-      
+
       {/* Mobile-optimized unique beautiful background */}
       {isMobile && (
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden w-screen h-screen mobile-bg-container" style={{ top: 0, left: 0, right: 0, bottom: 0 }}>
           {/* FloatingLines Background - Mobile optimized with lower settings for performance */}
           <div className="fixed inset-0 z-[0.5] pointer-events-auto w-screen h-screen">
-            <FloatingLines 
+            <FloatingLines
               topColor="#FF9F00"
               bottomColor="#0040FC"
               intensity={0.6}
@@ -78,25 +78,25 @@ export default function Home() {
               mixBlendMode="normal"
             />
           </div>
-          
+
           {/* Additional CSS layers for depth */}
           <div className="mobile-bg-layer mobile-bg-layer-1"></div>
           <div className="mobile-bg-layer mobile-bg-layer-2"></div>
-          
+
           {/* Animated mesh pattern */}
           <div className="mobile-mesh-pattern"></div>
-          
+
           {/* Floating orbs for extra visual interest */}
           <div className="mobile-orb mobile-orb-1"></div>
           <div className="mobile-orb mobile-orb-2"></div>
         </div>
       )}
-      
+
       {/* Desktop background with image overlay */}
       {!isMobile && (
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden hidden md:block">
           {/* Background Image for desktop too */}
-          <div 
+          <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
             style={{
               backgroundImage: 'url(/mobile landingbg.jpg)',
@@ -104,7 +104,7 @@ export default function Home() {
           ></div>
         </div>
       )}
-      
+
       {/* Dark overlay for better text readability */}
       <div className={`absolute inset-0 z-[1] pointer-events-none ${isMobile ? 'bg-black/15' : 'bg-black/40'}`}></div>
 
@@ -113,49 +113,49 @@ export default function Home() {
         <div className="text-center mb-6 sm:mb-8 pointer-events-auto">
           {/* Logo */}
           <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6 w-full mx-auto">
-          <Link
-          href="https://jklu.edu.in"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            src="/white_jklu_logo.png"
-            alt="JKLU Logo"
-            width={isMobile ? 100 : 170}
-            height={isMobile ? 100 : 170}
-            className="sketch-logo-dark cursor-pointer"
-            style={{ objectFit: "contain" }}
-          />
-        </Link>
-        <Link
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-            <Image
-              src="/Feedback_sys_logo.png"
-              alt="JKLU Feedback System Logo"
-              width={isMobile ? 160 : 275}
-              height={isMobile ? 160 : 275}
-              className="sketch-logo-dark"
-              style={{ objectFit: 'contain', filter: 'brightness(1.1)' }}
-            />
-          </Link>
+            <Link
+              href="https://jklu.edu.in"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/white_jklu_logo.png"
+                alt="JKLU Logo"
+                width={isMobile ? 100 : 170}
+                height={isMobile ? 100 : 170}
+                className="sketch-logo-dark cursor-pointer"
+                style={{ objectFit: "contain" }}
+              />
+            </Link>
+            <Link
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/Feedback_sys_logo.png"
+                alt="CampusVoice @ JKLU Logo"
+                width={isMobile ? 160 : 275}
+                height={isMobile ? 160 : 275}
+                className="sketch-logo-dark"
+                style={{ objectFit: 'contain', filter: 'brightness(1.1)' }}
+              />
+            </Link>
           </div>
-          
+
           {/* Main Title */}
           <h1 className="sketch-title-modern text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight text-white px-2">
-            JKLU Feedback Ticket System
+            CampusVoice @ JKLU
           </h1>
-          
+
           {/* Subtitle */}
           <p className="sketch-text-dark text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 text-white/90 px-2">
-            Resolve Your Problem
+            Your Voice. Our Responsibility.
           </p>
-          
+
           {/* Description */}
           <p className="sketch-text-dark text-xs sm:text-sm md:text-base lg:text-lg text-white/70 max-w-2xl mx-auto mb-4 sm:mb-6 px-4">
-            Got an issue? We've got your back! Submit your feedback and let's make things better together.
+            CampusVoice @ JKLU is the official student feedback and complaint portal of JK Lakshmipat University. The platform enables students to securely submit feedback and raise complaints related to academic, administrative, and campus matters.
           </p>
 
           {/* CTA Buttons */}

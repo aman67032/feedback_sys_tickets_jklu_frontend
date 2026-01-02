@@ -29,7 +29,7 @@ export default function Login() {
       setToken(response.data.token);
       setUser(response.data.user);
       toast.success('Login successful!');
-      
+
       const redirectPath = response.data.user.role === 'super_admin' ? '/admin' : '/dashboard';
       router.push(redirectPath);
     } catch (error: any) {
@@ -62,7 +62,7 @@ export default function Login() {
       </div>
 
       <div className="relative z-10 w-full max-w-4xl grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="hidden lg:flex flex-col justify-center rounded-2xl border-2 backdrop-blur-md p-8 shadow-2xl sketch-card" style={{ 
+        <div className="hidden lg:flex flex-col justify-center rounded-2xl border-2 backdrop-blur-md p-8 shadow-2xl sketch-card" style={{
           borderColor: '#565449',
           background: 'rgba(255, 251, 244, 0.4)'
         }}>
@@ -70,7 +70,7 @@ export default function Login() {
             Welcome Back
           </h2>
           <p className="sketch-text text-lg" style={{ color: '#565449' }}>
-            Sign in to track your tickets, updates, and resolutions.
+            Sign in to CampusVoice to track your tickets, updates, and resolutions.
           </p>
           <div className="mt-6 space-y-2 text-sm" style={{ color: '#11120D' }}>
             <div className="flex items-center gap-2">
@@ -119,7 +119,7 @@ export default function Login() {
                     Email address
                   </label>
                   <input
-                    {...register('email', { 
+                    {...register('email', {
                       required: 'Email is required',
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -152,7 +152,7 @@ export default function Login() {
                     Password
                   </label>
                   <input
-                    {...register('password', { 
+                    {...register('password', {
                       required: 'Password is required',
                       minLength: {
                         value: 6,
@@ -180,8 +180,8 @@ export default function Login() {
                   )}
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full sketch-button-primary-auth text-base py-3"
                   loading={loading}
                   disabled={loading}

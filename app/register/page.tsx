@@ -21,7 +21,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormData>();
-  
+
   const watchedPassword = watch('password');
 
   const onSubmit = async (data: RegisterFormData) => {
@@ -33,13 +33,13 @@ export default function Register() {
     setLoading(true);
     try {
       const { confirmPassword, ...submitData } = data;
-      
+
       // Registration is only for students
       const registrationData = {
         ...submitData,
         role: 'student'
       };
-      
+
       const response = await authAPI.register(registrationData);
       toast.success('Registration successful! Please login.');
       router.push('/login');
@@ -65,12 +65,12 @@ export default function Register() {
       </div>
 
       <div className="relative z-10 w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="hidden lg:flex flex-col justify-center rounded-2xl border-2 backdrop-blur-md p-8 shadow-2xl sketch-card" style={{ 
+        <div className="hidden lg:flex flex-col justify-center rounded-2xl border-2 backdrop-blur-md p-8 shadow-2xl sketch-card" style={{
           borderColor: '#565449',
           background: 'rgba(255, 251, 244, 0.4)'
         }}>
           <h2 className="sketch-title text-4xl font-black mb-3" style={{ color: '#11120D' }}>
-            Join the JKLU Feedback System
+            Join CampusVoice @ JKLU
           </h2>
           <p className="sketch-text text-lg" style={{ color: '#565449' }}>
             Create your student account to submit tickets and track resolutions.
@@ -115,7 +115,7 @@ export default function Register() {
                     Full Name
                   </label>
                   <input
-                    {...register('name', { 
+                    {...register('name', {
                       required: 'Name is required',
                       minLength: {
                         value: 2,
@@ -148,7 +148,7 @@ export default function Register() {
                     Email address
                   </label>
                   <input
-                    {...register('email', { 
+                    {...register('email', {
                       required: 'Email is required',
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -181,7 +181,7 @@ export default function Register() {
                     Student ID
                   </label>
                   <input
-                    {...register('studentId', { 
+                    {...register('studentId', {
                       required: 'Student ID is required',
                       minLength: {
                         value: 5,
@@ -215,7 +215,7 @@ export default function Register() {
                       Password
                     </label>
                     <input
-                      {...register('password', { 
+                      {...register('password', {
                         required: 'Password is required',
                         minLength: {
                           value: 6,
@@ -248,7 +248,7 @@ export default function Register() {
                       Confirm Password
                     </label>
                     <input
-                      {...register('confirmPassword', { 
+                      {...register('confirmPassword', {
                         required: 'Please confirm your password',
                         validate: (value) => value === watchedPassword || 'Passwords do not match'
                       })}
@@ -274,8 +274,8 @@ export default function Register() {
                   </div>
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full sketch-button-primary-auth text-base py-3"
                   loading={loading}
                   disabled={loading}
