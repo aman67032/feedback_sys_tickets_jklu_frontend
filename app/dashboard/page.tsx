@@ -244,7 +244,7 @@ export default function Dashboard() {
                   >
                     <Image
                       src="/Feedback_sys_logo.png"
-                      alt="Feedback System Logo"
+                      alt="CampusVoice Logo"
                       width={isMobile ? 90 : 140}
                       height={isMobile ? 90 : 140}
                       className="sketch-logo-dark"
@@ -253,7 +253,7 @@ export default function Dashboard() {
                   </Link>
                 </div>
                 <div className="flex flex-col leading-tight">
-                  <h1 className="text-base sm:text-xl md:text-2xl font-bold text-white mb-1">JKLU Feedback Dashboard</h1>
+                  <h1 className="text-base sm:text-xl md:text-2xl font-bold text-white mb-1">CampusVoice Dashboard</h1>
                   <span className="text-xs sm:text-sm md:text-base text-white/80 mb-1 sm:mb-2">
                     Welcome, {user.name}
                   </span>
@@ -535,8 +535,8 @@ export default function Dashboard() {
                     type="button"
                     onClick={() => setStatusFilter(value as typeof statusFilter)}
                     className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold border-2 transition-colors active:scale-95 ${isActive
-                        ? 'bg-orange-500/30 text-white border-orange-400'
-                        : 'bg-white/10 text-white/80 border-white/30 hover:bg-white/20 hover:border-white/50'
+                      ? 'bg-orange-500/30 text-white border-orange-400'
+                      : 'bg-white/10 text-white/80 border-white/30 hover:bg-white/20 hover:border-white/50'
                       }`}
                   >
                     {label}
@@ -550,8 +550,8 @@ export default function Dashboard() {
               <button
                 onClick={() => setActiveTab('active')}
                 className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-bold transition-colors relative whitespace-nowrap ${activeTab === 'active'
-                    ? 'text-orange-400'
-                    : 'text-white/60 hover:text-white/80'
+                  ? 'text-orange-400'
+                  : 'text-white/60 hover:text-white/80'
                   }`}
               >
                 <span className="flex items-center gap-1 sm:gap-2">
@@ -571,8 +571,8 @@ export default function Dashboard() {
                 <button
                   onClick={() => setActiveTab('resolved')}
                   className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-bold transition-colors relative whitespace-nowrap ${activeTab === 'resolved'
-                      ? 'text-green-400'
-                      : 'text-white/60 hover:text-white/80'
+                    ? 'text-green-400'
+                    : 'text-white/60 hover:text-white/80'
                     }`}
                 >
                   <span className="flex items-center gap-1 sm:gap-2">
@@ -645,15 +645,15 @@ export default function Dashboard() {
                             </div>
                             <div className="flex gap-2 flex-wrap w-full sm:w-auto">
                               <span className={`inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold border-2 ${complaint.status === 'pending' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-400' :
-                                  complaint.status === 'in_progress' ? 'bg-blue-500/20 text-blue-300 border-blue-400' :
-                                    complaint.status === 'resolved' ? 'bg-green-500/20 text-green-300 border-green-400' :
-                                      'bg-red-500/20 text-red-300 border-red-400'
+                                complaint.status === 'in_progress' ? 'bg-blue-500/20 text-blue-300 border-blue-400' :
+                                  complaint.status === 'resolved' ? 'bg-green-500/20 text-green-300 border-green-400' :
+                                    'bg-red-500/20 text-red-300 border-red-400'
                                 }`}>
                                 {complaint.status.replace('_', ' ')}
                               </span>
                               <span className={`inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold border-2 ${complaint.priority === 'low' ? 'bg-gray-500/20 text-gray-300 border-gray-400' :
-                                  complaint.priority === 'medium' ? 'bg-orange-500/20 text-orange-300 border-orange-400' :
-                                    'bg-red-500/20 text-red-300 border-red-400'
+                                complaint.priority === 'medium' ? 'bg-orange-500/20 text-orange-300 border-orange-400' :
+                                  'bg-red-500/20 text-red-300 border-red-400'
                                 }`}>
                                 {complaint.priority}
                               </span>
@@ -772,8 +772,8 @@ export default function Dashboard() {
                             Resolved
                           </span>
                           <span className={`inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold border-2 ${complaint.priority === 'low' ? 'bg-gray-500/20 text-gray-300 border-gray-400' :
-                              complaint.priority === 'medium' ? 'bg-orange-500/20 text-orange-300 border-orange-400' :
-                                'bg-red-500/20 text-red-300 border-red-400'
+                            complaint.priority === 'medium' ? 'bg-orange-500/20 text-orange-300 border-orange-400' :
+                              'bg-red-500/20 text-red-300 border-red-400'
                             }`}>
                             {complaint.priority}
                           </span>
