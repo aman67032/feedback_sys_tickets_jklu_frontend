@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-righteous: var(--font-righteous);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,33 +28,43 @@ body {
 
 /* Sketch Vibes Styles */
 @keyframes sketchy {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) rotate(0deg);
   }
+
   25% {
     transform: translate(-1px, 1px) rotate(-0.5deg);
   }
+
   50% {
     transform: translate(1px, -1px) rotate(0.5deg);
   }
+
   75% {
     transform: translate(-1px, -1px) rotate(-0.3deg);
   }
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) translateX(0px);
     opacity: 0.3;
   }
+
   25% {
     transform: translateY(-20px) translateX(10px);
     opacity: 0.6;
   }
+
   50% {
     transform: translateY(-30px) translateX(-5px);
     opacity: 0.4;
   }
+
   75% {
     transform: translateY(-15px) translateX(15px);
     opacity: 0.5;
@@ -65,10 +76,12 @@ body {
     opacity: 0;
     transform: translateX(-100%) rotate(12deg);
   }
+
   50% {
     opacity: 1;
     transform: translateX(0%) rotate(12deg);
   }
+
   100% {
     opacity: 0;
     transform: translateX(100%) rotate(12deg);
@@ -76,15 +89,20 @@ body {
 }
 
 @keyframes mesh-shift {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: 0% 0%;
   }
+
   25% {
     background-position: 100% 0%;
   }
+
   50% {
     background-position: 100% 100%;
   }
+
   75% {
     background-position: 0% 100%;
   }
@@ -106,14 +124,12 @@ body {
 /* Sketch Background Pattern */
 .sketch-bg {
   position: relative;
-  background-image: 
-    repeating-linear-gradient(
-      0deg,
+  background-image:
+    repeating-linear-gradient(0deg,
       transparent,
       transparent 2px,
       rgba(0, 0, 0, 0.02) 2px,
-      rgba(0, 0, 0, 0.02) 4px
-    );
+      rgba(0, 0, 0, 0.02) 4px);
 }
 
 /* Radial Gradient Utility */
@@ -128,7 +144,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
+  background-image:
     radial-gradient(circle at 20% 50%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
   pointer-events: none;
@@ -139,7 +155,7 @@ body {
   position: relative;
   font-weight: 700;
   letter-spacing: -0.02em;
-  text-shadow: 
+  text-shadow:
     1px 1px 0 rgba(0, 0, 0, 0.1),
     -1px -1px 0 rgba(255, 255, 255, 0.8);
   transition: color 0.3s ease;
@@ -149,7 +165,7 @@ body {
   position: relative;
   font-weight: 900;
   letter-spacing: -0.03em;
-  text-shadow: 
+  text-shadow:
     2px 2px 0 rgba(0, 0, 0, 0.1),
     -1px -1px 0 rgba(255, 255, 255, 0.9),
     0 0 20px rgba(249, 168, 34, 0.2);
@@ -170,13 +186,11 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 10px,
-    rgba(0, 0, 0, 0.1) 10px,
-    rgba(0, 0, 0, 0.1) 12px
-  );
+  background: repeating-linear-gradient(90deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.1) 10px,
+      rgba(0, 0, 0, 0.1) 12px);
 }
 
 .sketch-border-top {
@@ -192,13 +206,11 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 10px,
-    rgba(0, 0, 0, 0.1) 10px,
-    rgba(0, 0, 0, 0.1) 12px
-  );
+  background: repeating-linear-gradient(90deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.1) 10px,
+      rgba(0, 0, 0, 0.1) 12px);
 }
 
 /* Sketch Box */
@@ -217,12 +229,10 @@ body {
   bottom: -3px;
   border: 3px solid #1f2937;
   border-radius: 4px;
-  clip-path: polygon(
-    0% 0%, 
-    98% 2%, 
-    100% 98%, 
-    2% 100%
-  );
+  clip-path: polygon(0% 0%,
+      98% 2%,
+      100% 98%,
+      2% 100%);
 }
 
 /* Sketch Card */
@@ -237,7 +247,7 @@ body {
 
 .sketch-card:hover {
   transform: rotate(0.5deg) translateY(-8px) scale(1.02);
-  box-shadow: 
+  box-shadow:
     12px 12px 0 rgba(0, 0, 0, 0.25),
     0 0 30px rgba(249, 168, 34, 0.4);
   border-color: #F9A822;
@@ -385,29 +395,25 @@ body {
 .sketch-border-dashed {
   border-style: dashed;
   border-radius: 50%;
-  clip-path: polygon(
-    0% 0%, 
-    95% 5%, 
-    100% 95%, 
-    5% 100%
-  );
+  clip-path: polygon(0% 0%,
+      95% 5%,
+      100% 95%,
+      5% 100%);
 }
 
 /* Sketch Corner */
 .sketch-corner {
-  clip-path: polygon(
-    0% 0%, 
-    90% 10%, 
-    100% 100%, 
-    10% 90%
-  );
+  clip-path: polygon(0% 0%,
+      90% 10%,
+      100% 100%,
+      10% 90%);
 }
 
 /* Ticket Shape with Perforated Edges */
 .sketch-ticket {
   border-radius: 8px;
   border: 2px dashed rgba(251, 146, 60, 0.4);
-  box-shadow: 
+  box-shadow:
     0 4px 6px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
   position: relative;
@@ -424,7 +430,7 @@ body {
   height: 16px;
   background: inherit;
   border-radius: 50%;
-  box-shadow: 
+  box-shadow:
     inset 0 0 0 2px rgba(251, 146, 60, 0.3),
     0 0 0 2px rgba(251, 191, 36, 0.2);
 }
@@ -439,7 +445,7 @@ body {
   height: 16px;
   background: inherit;
   border-radius: 50%;
-  box-shadow: 
+  box-shadow:
     inset 0 0 0 2px rgba(251, 146, 60, 0.3),
     0 0 0 2px rgba(251, 191, 36, 0.2);
 }
@@ -473,7 +479,7 @@ body {
 .mobile-mesh-pattern {
   position: absolute;
   inset: 0;
-  background-image: 
+  background-image:
     linear-gradient(rgba(255, 159, 0, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 64, 252, 0.08) 1px, transparent 1px);
   background-size: 50px 50px;
@@ -513,7 +519,7 @@ body {
 .mobile-grid-overlay {
   position: absolute;
   inset: 0;
-  background-image: 
+  background-image:
     linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 30px 30px;
@@ -523,14 +529,18 @@ body {
 }
 
 @keyframes mobileFloat1 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
     opacity: 0.6;
   }
+
   33% {
     transform: translate(20px, -30px) scale(1.1);
     opacity: 0.4;
   }
+
   66% {
     transform: translate(-15px, 20px) scale(0.9);
     opacity: 0.7;
@@ -538,14 +548,18 @@ body {
 }
 
 @keyframes mobileFloat2 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
     opacity: 0.5;
   }
+
   33% {
     transform: translate(-25px, 25px) scale(1.2);
     opacity: 0.3;
   }
+
   66% {
     transform: translate(30px, -20px) scale(0.8);
     opacity: 0.6;
@@ -553,10 +567,13 @@ body {
 }
 
 @keyframes mobileFloat3 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
     opacity: 0.4;
   }
+
   50% {
     transform: translate(15px, -15px) scale(1.15);
     opacity: 0.6;
@@ -567,48 +584,63 @@ body {
   0% {
     background-position: 0% 0%;
   }
+
   100% {
     background-position: 100% 100%;
   }
 }
 
 @keyframes mobileOrbFloat1 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
+
   25% {
     transform: translate(30px, -40px) scale(1.2);
   }
+
   50% {
     transform: translate(-20px, 30px) scale(0.8);
   }
+
   75% {
     transform: translate(40px, 20px) scale(1.1);
   }
 }
 
 @keyframes mobileOrbFloat2 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
+
   33% {
     transform: translate(-35px, 25px) scale(1.3);
   }
+
   66% {
     transform: translate(25px, -35px) scale(0.7);
   }
 }
 
 @keyframes mobileOrbFloat3 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
+
   25% {
     transform: translate(-30px, -25px) scale(1.1);
   }
+
   50% {
     transform: translate(35px, 40px) scale(0.9);
   }
+
   75% {
     transform: translate(-25px, 30px) scale(1.15);
   }
@@ -643,22 +675,22 @@ body {
   .sketch-title {
     font-size: 3rem;
   }
-  
+
   .sketch-text {
     font-size: 1.5rem;
   }
-  
+
   /* Disable heavy animations on mobile */
   .sketch-card-dark {
     transform: none !important;
     transition: background-color 0.2s ease !important;
   }
-  
+
   .sketch-card-dark:hover {
     transform: none !important;
     box-shadow: none !important;
   }
-  
+
   .sketch-icon-dark {
     filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.3)) !important;
   }
@@ -669,7 +701,7 @@ body {
   position: relative;
   font-weight: 900;
   letter-spacing: -0.03em;
-  text-shadow: 
+  text-shadow:
     0 0 20px rgba(59, 130, 246, 0.3),
     0 0 40px rgba(249, 115, 22, 0.2),
     2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -681,7 +713,7 @@ body {
   font-family: 'Georgia', 'Times New Roman', serif;
   font-weight: 700;
   letter-spacing: 0.02em;
-  text-shadow: 
+  text-shadow:
     0 0 20px rgba(59, 130, 246, 0.3),
     0 0 40px rgba(249, 115, 22, 0.2),
     2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -691,23 +723,23 @@ body {
 
 .sketch-title-modern {
   position: relative;
-  font-family: var(--font-inter), 'Inter', 'Poppins', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-weight: 800;
+  font-family: var(--font-righteous), var(--font-inter), 'Inter', 'Poppins', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  text-shadow: 
-    0 0 20px rgba(59, 130, 246, 0.3),
-    0 0 40px rgba(249, 115, 22, 0.2),
-    2px 2px 4px rgba(0, 0, 0, 0.5);
-  transform-style: preserve-3d;
-  color: white;
+  background: linear-gradient(135deg, #F9A822 0%, #FF4D4D 50%, #F97316 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+  text-shadow: none;
 }
 
 .sketch-text-dark {
   position: relative;
   font-weight: 700;
   letter-spacing: -0.02em;
-  text-shadow: 
+  text-shadow:
     1px 1px 2px rgba(0, 0, 0, 0.5),
     0 0 10px rgba(255, 255, 255, 0.1);
   transition: color 0.3s ease;
@@ -761,7 +793,7 @@ body {
   letter-spacing: 0.05em;
   transform: rotate(0.5deg);
   transition: all 0.3s ease;
-  box-shadow: 
+  box-shadow:
     4px 4px 0 rgba(0, 0, 0, 0.3),
     0 0 20px rgba(59, 130, 246, 0.3);
   backdrop-filter: blur(10px);
@@ -769,7 +801,7 @@ body {
 
 .sketch-button-dark-primary:hover {
   transform: rotate(-0.5deg) translate(-2px, -2px);
-  box-shadow: 
+  box-shadow:
     6px 6px 0 rgba(0, 0, 0, 0.4),
     0 0 30px rgba(249, 115, 22, 0.5);
   background: linear-gradient(135deg, #F97316, #3B82F6) !important;
@@ -785,7 +817,7 @@ body {
 
 .sketch-card-dark:hover {
   transform: rotate(0.5deg) translateY(-8px) scale(1.02);
-  box-shadow: 
+  box-shadow:
     12px 12px 0 rgba(0, 0, 0, 0.4),
     0 0 30px rgba(59, 130, 246, 0.3);
   border-color: rgba(59, 130, 246, 0.5) !important;
@@ -856,11 +888,9 @@ body {
 .custom-loader-box {
   width: 100px;
   height: 100px;
-  background: linear-gradient(
-    180deg,
-    var(--color-one) 30%,
-    var(--color-two) 70%
-  );
+  background: linear-gradient(180deg,
+      var(--color-one) 30%,
+      var(--color-two) 70%);
   mask: url(#clipping-loader);
   -webkit-mask: url(#clipping-loader);
 }
@@ -920,6 +950,7 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -929,15 +960,19 @@ body {
   0% {
     filter: contrast(15);
   }
+
   20% {
     filter: contrast(3);
   }
+
   40% {
     filter: contrast(3);
   }
+
   60% {
     filter: contrast(15);
   }
+
   100% {
     filter: contrast(15);
   }
@@ -947,18 +982,23 @@ body {
   0% {
     filter: hue-rotate(0deg);
   }
+
   20% {
     filter: hue-rotate(-30deg);
   }
+
   40% {
     filter: hue-rotate(-60deg);
   }
+
   60% {
     filter: hue-rotate(-90deg);
   }
+
   80% {
     filter: hue-rotate(-45deg);
   }
+
   100% {
     filter: hue-rotate(0deg);
   }

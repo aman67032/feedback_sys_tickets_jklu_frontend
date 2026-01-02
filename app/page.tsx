@@ -144,7 +144,7 @@ export default function Home() {
           </div>
 
           {/* Main Title */}
-          <h1 className="sketch-title-modern text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight text-white px-2">
+          <h1 className="sketch-title-modern text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-3 sm:mb-4 leading-tight text-white px-2">
             CampusVoice @ JKLU
           </h1>
 
